@@ -1,6 +1,5 @@
 package com.fiap.techchallenge.estacionamentotech.config;
 
-import com.fiap.techchallenge.estacionamentotech.security.JwtAuthenticationEntryPoint;
 import com.fiap.techchallenge.estacionamentotech.security.JwtAuthenticationFilter;
 import com.fiap.techchallenge.estacionamentotech.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;

@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-    @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @PostMapping("/cadastro/comum")
     public ResponseEntity<UsuarioDTO> registrarUsuarioComum(@Valid @RequestBody UsuarioDTO usuarioDTO) {
@@ -32,7 +36,6 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastro/fiscal")
-    //@PreAuthorize("hasRole('FISCAL')")
     public ResponseEntity<UsuarioDTO> registrarUsuarioFiscal(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         log.info("Iniciando o registro do usuario fiscal.");
         usuarioDTO.setTipoUsuario(TipoUsuario.FISCAL);
