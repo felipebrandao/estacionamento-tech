@@ -6,5 +6,5 @@ public class LocalEstacionamentoDTO {
     private String logradouro;
     private String bairro;
     private String cep;
-    private String numero;
+    private String intervaloDeNumero;
 }
