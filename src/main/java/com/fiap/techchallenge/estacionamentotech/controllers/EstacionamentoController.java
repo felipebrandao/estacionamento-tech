@@ -1,10 +1,14 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
+import com.fiap.techchallenge.estacionamentotech.dtos.LocalEstacionamentoDTO;
+import com.fiap.techchallenge.estacionamentotech.dtos.VeiculoEstacionadoDTO;
 import com.fiap.techchallenge.estacionamentotech.services.EstacionamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/estacionamento")
@@ -30,8 +34,8 @@ public class EstacionamentoController {
     }
 
     @PostMapping("/estacionar")
-    public ResponseEntity<VeiculoEstacionadoDTO> registrarEstacionamento(@RequestBody VeiculoEstacionadoDTO veiculoDTO) {
-        VeiculoEstacionadoDTO veiculoEstacionado = estacionamentoService.registrarEstacionamento(veiculoDTO);
+    public ResponseEntity<VeiculoEstacionadoDTO> registrarEstacionamento(@RequestBody VeiculoEstacionadoDTO veiculoEstacionadoDTO) {
+        VeiculoEstacionadoDTO veiculoEstacionado = estacionamentoService.registrarEstacionamento(veiculoEstacionadoDTO);
         return new ResponseEntity<>(veiculoEstacionado, HttpStatus.CREATED);
     }
 
