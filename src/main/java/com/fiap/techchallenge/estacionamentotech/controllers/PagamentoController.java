@@ -1,5 +1,14 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
+import com.fiap.techchallenge.estacionamentotech.dtos.PagamentoDTO;
+import com.fiap.techchallenge.estacionamentotech.enums.FormaDePagamento;
+import com.fiap.techchallenge.estacionamentotech.services.PagamentoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/pagamento")
 public class PagamentoController {
@@ -13,13 +22,13 @@ public class PagamentoController {
 
     @GetMapping("/")
     public ResponseEntity<List<PagamentoDTO>> listarFormasPagamento() {
-        List<FormaPagamento> formasPagamento = formaPagamentoService.listarFormasPagamento();
+        List<FormaDePagamento> formasPagamento = pagamentoService.listarFormasPagamento();
         return ResponseEntity.ok(formasPagamento);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FormaPagamento> buscarFormaPagamentoPorId(@PathVariable Long id) {
-        FormaPagamento formaPagamento = formaPagamentoService.buscarFormaPagamentoPorId(id);
+    public ResponseEntity<FormaDePagamento> buscarFormaPagamentoPorId(@PathVariable Long id) {
+        FormaDePagamento formaPagamento = pagamentoService.buscarFormaPagamentoPorId(id);
         if (formaPagamento != null) {
             return ResponseEntity.ok(formaPagamento);
         } else {
@@ -28,14 +37,14 @@ public class PagamentoController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<FormaPagamento> criarFormaPagamento(@RequestBody FormaPagamento formaPagamento) {
-        FormaPagamento novaFormaPagamento = formaPagamentoService.criarFormaPagamento(formaPagamento);
+    public ResponseEntity<FormaDePagamento> criarFormaPagamento(@RequestBody FormaDePagamento formaPagamento) {
+        FormaDePagamento novaFormaPagamento = pagamentoService.criarFormaPagamento(formaPagamento);
         return ResponseEntity.ok(novaFormaPagamento);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FormaPagamento> atualizarFormaPagamento(@PathVariable Long id, @RequestBody FormaPagamento formaPagamento) {
-        FormaPagamento formaPagamentoAtualizada = formaPagamentoService.atualizarFormaPagamento(id, formaPagamento);
+    public ResponseEntity<FormaDePagamento> atualizarFormaPagamento(@PathVariable Long id, @RequestBody FormaDePagamento formaPagamento) {
+        FormaDePagamento formaPagamentoAtualizada = pagamentoService.atualizarFormaPagamento(id, formaPagamento);
         if (formaPagamentoAtualizada != null) {
             return ResponseEntity.ok(formaPagamentoAtualizada);
         } else {
@@ -45,7 +54,7 @@ public class PagamentoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirFormaPagamento(@PathVariable Long id) {
-        formaPagamentoService.excluirFormaPagamento(id);
+        pagamentoService.excluirFormaPagamento(id);
         return ResponseEntity.noContent().build();
     }
 }
