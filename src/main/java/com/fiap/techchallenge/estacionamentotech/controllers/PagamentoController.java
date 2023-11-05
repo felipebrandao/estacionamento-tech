@@ -19,7 +19,7 @@ public class PagamentoController {
     public PagamentoController(PagamentoService pagamentoService) {
         this.pagamentoService = pagamentoService;
     }
-
+/*
     @GetMapping("/listar")
     public ResponseEntity<List<PagamentoDTO>> listarFormaPagamento() {
         List<FormaPagamento> formasPagamento = formaPagamentoService.listarFormasPagamento();
@@ -62,5 +62,5 @@ public class PagamentoController {
     public ResponseEntity<Void> excluirFormaPagamento(@PathVariable Long id) {
         pagamentoService.excluirFormaPagamento(id);
         return ResponseEntity.noContent().build();
-    }
+    } */
 }

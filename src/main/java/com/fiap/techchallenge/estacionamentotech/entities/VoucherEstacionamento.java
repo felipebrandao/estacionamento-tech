@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "voucherEstacionamento")
 @NoArgsConstructor
@@ -24,7 +26,7 @@ public class VoucherEstacionamento {
     private VeiculoEstacionado veiculoEstacionado;
 
     @Column(name = "data_hora_registro")
-    private Long dataHoraRegistro;
+    private LocalDateTime dataHoraRegistro;
 
     @Column(name = "qtde_de_horas_estacionado")
     private Long qtdeDeHorasEstacionado;
@@ -33,7 +35,7 @@ public class VoucherEstacionamento {
     @Enumerated(EnumType.STRING)
     private FormaDePagamentoEnum formaDePagamentoEnum;
 
-    public VoucherEstacionamento(Long id, Long idVeiculoEstacionado, Long dataHoraRegistro, Long qtdeDeHorasEstacionado, FormaDePagamentoEnum formaDePagamentoEnum) {
+    public VoucherEstacionamento(Long id, Long idVeiculoEstacionado, LocalDateTime dataHoraRegistro, Long qtdeDeHorasEstacionado, FormaDePagamentoEnum formaDePagamentoEnum) {
         this.id = id;
         this.idVeiculoEstacionado = idVeiculoEstacionado;
         this.dataHoraRegistro = dataHoraRegistro;

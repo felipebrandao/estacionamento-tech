@@ -25,6 +25,7 @@ public class MultaController {
         this.userDetailsUtil = userDetailsUtil;
     }
 
+    /*
     //TODO Registrar multa
     @PostMapping("/registrar")
     public ResponseEntity<MultaDTO> registrarMulta(@RequestBody MultaDTO multaDto) {
@@ -37,4 +38,5 @@ public class MultaController {
 
         return new ResponseEntity<>(novaMulta, CREATED);
     }
+    */
 }

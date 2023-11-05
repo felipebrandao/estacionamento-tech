@@ -12,7 +12,7 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
-
+/*
     public void sendEmail(String to, String subject, String text) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
@@ -27,4 +27,5 @@ public class EmailService {
             e.printStackTrace();
         }
     }
+    */
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MultaService {
-
+/*
     private final VeiculoRepository veiculoRepository;
     private final MultaRepository multaRepository;
 
@@ -36,4 +36,5 @@ public class MultaService {
 
         return multa;
     }
+    */
 }

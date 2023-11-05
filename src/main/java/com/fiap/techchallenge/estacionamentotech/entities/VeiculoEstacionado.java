@@ -28,7 +28,7 @@ public class VeiculoEstacionado {
     private Long idVeiculo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idVeiculo", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "id_veiculo", referencedColumnName = "id", insertable = false, updatable = false)
     private Veiculo veiculo;
 
     @Column(name = "id_local_estacionamento")

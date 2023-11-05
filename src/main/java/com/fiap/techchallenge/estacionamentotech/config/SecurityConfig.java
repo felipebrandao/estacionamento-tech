@@ -49,8 +49,14 @@ public class SecurityConfig {
                         .requestMatchers("/usuario/cadastro/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         .requestMatchers("/veiculo").hasAuthority("COMUM")
+                        .requestMatchers("/estacionamento/estacionar").hasAuthority("COMUM")
+                        .requestMatchers("/estacionamento/estender-horas/**").hasAuthority("COMUM")
+                        .requestMatchers("/estacionamento/locais/listar").hasAuthority("COMUM")
+
                         .requestMatchers("/multa").hasAuthority("FISCAL")
+                        .requestMatchers("/estacionamento/locais").hasAuthority("FISCAL")
                         .anyRequest().authenticated());
 
 
