@@ -1,6 +1,7 @@
 package com.fiap.techchallenge.estacionamentotech.utils;
 
 import com.fiap.techchallenge.estacionamentotech.entities.Usuario;
+import com.fiap.techchallenge.estacionamentotech.repositories.UsuarioRepository;
 import com.fiap.techchallenge.estacionamentotech.services.CustomUserDetailsService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +13,12 @@ public class UserDetailsUtil {
 
     private final CustomUserDetailsService customUserDetailsService;
 
+    private final UsuarioRepository usuarioRepository;
+
     @Autowired
-    public UserDetailsUtil(CustomUserDetailsService customUserDetailsService) {
+    public UserDetailsUtil(CustomUserDetailsService customUserDetailsService, UsuarioRepository usuarioRepository) {
         this.customUserDetailsService = customUserDetailsService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public UserDetails getLoggedUserDetails() {
@@ -23,12 +27,13 @@ public class UserDetailsUtil {
 
     public Usuario getLoggedUsuario() {
         UserDetails userDetails = getLoggedUserDetails();
-        return (Usuario) customUserDetailsService.loadUserByUsername(userDetails.getUsername());
+        return usuarioRepository.findByEmail(userDetails.getUsername());
     }
 
     public String getLoggedUsername() {
         UserDetails userDetails = getLoggedUserDetails();
         return userDetails.getUsername();
     }
+
 }
 

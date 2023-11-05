@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.estacionamentotech.scheduler;
 
 public class EstacionamentoJob {
-
+/*
     public void execute(JobExecutionContext context) throws JobExecutionException {
         // Lógica de verificação do estacionamento
         // Consulte o banco de dados para obter informações sobre o estacionamento
@@ -22,4 +22,6 @@ public class EstacionamentoJob {
         // Implemente a lógica para enviar uma notificação ao usuário
         // Isso pode ser feito por e-mail, SMS, notificação push, etc.
     }
+
+ */
 }

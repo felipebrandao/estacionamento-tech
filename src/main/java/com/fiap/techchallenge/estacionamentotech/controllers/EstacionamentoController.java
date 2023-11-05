@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/estacionamento")
 public class EstacionamentoController {
 
+    /*
     private final EstacionamentoService estacionamentoService;
 
     @Autowired
@@ -44,6 +45,6 @@ public class EstacionamentoController {
         VeiculoEstacionadoDTO veiculoEstacionado = estacionamentoService.adicionarHorasDeEstacionamento(idVeiculoEstacionado, horas);
         return new ResponseEntity<>(veiculoEstacionado, HttpStatus.OK);
     }
-
+*/
 }
 

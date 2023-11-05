@@ -1,11 +1,18 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
+import com.fiap.techchallenge.estacionamentotech.dtos.VeiculoDTO;
+import com.fiap.techchallenge.estacionamentotech.entities.Usuario;
+import com.fiap.techchallenge.estacionamentotech.services.VeiculoService;
+import com.fiap.techchallenge.estacionamentotech.utils.UserDetailsUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -13,10 +20,12 @@ import org.springframework.web.bind.annotation.*;
 public class VeiculoController {
 
     private final VeiculoService veiculoService;
+    private final UserDetailsUtil userDetailsUtil;
 
     @Autowired
-    public VeiculoController(VeiculoService veiculoService) {
+    public VeiculoController(VeiculoService veiculoService, UserDetailsUtil userDetailsUtil) {
         this.veiculoService = veiculoService;
+        this.userDetailsUtil = userDetailsUtil;
     }
 
     @GetMapping
@@ -24,46 +33,35 @@ public class VeiculoController {
         return ResponseEntity.ok("Hello World");
     }
 
-    private String getLoggedUsername() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getUsername();
-    }
-
     @PostMapping
-    public ResponseEntity<Veiculo> cadastrarVeiculo(@RequestBody Veiculo veiculo) {
-        String username = getLoggedUsername();
+    public ResponseEntity<VeiculoDTO> cadastrarVeiculo(@RequestBody VeiculoDTO veiculo) {
+        Usuario usuario = userDetailsUtil.getLoggedUsuario();
 
-        veiculo.setUsuario(veiculoService.encontrarUsuarioPorNomeDeUsuario(username));
-
-        Veiculo novoVeiculo = veiculoService.cadastrarVeiculo(veiculo);
-        return new ResponseEntity<>(novoVeiculo, HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Veiculo>> listarVeiculos() {
-        String username = getLoggedUsername();
-
-        List<Veiculo> veiculos = veiculoService.listarVeiculosPorUsuario(username);
-        return new ResponseEntity<>(veiculos, HttpStatus.OK);
+        VeiculoDTO veiculoCadastrado = veiculoService.cadastrarVeiculo(veiculo, usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(veiculoCadastrado);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Veiculo> buscarVeiculoPorId(@PathVariable Long id) {
-        String username = getLoggedUsername();
+    public ResponseEntity<VeiculoDTO> buscarVeiculoPorId(@PathVariable Long id) {
+        Usuario usuario = userDetailsUtil.getLoggedUsuario();
 
-        Veiculo veiculo = veiculoService.buscarVeiculoPorIdEUsuario(id, username);
-        if (veiculo != null) {
-            return new ResponseEntity<>(veiculo, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        VeiculoDTO veiculo = veiculoService.buscarVeiculoPorIdEUsuario(id, usuario);
+        return ResponseEntity.status(HttpStatus.OK).body(veiculo);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Veiculo> atualizarVeiculo(@PathVariable Long id, @RequestBody Veiculo veiculo) {
-        String username = getLoggedUsername();
+    @GetMapping("/listar")
+    public ResponseEntity<List<VeiculoDTO>> listarVeiculos() {
+        Usuario usuario = userDetailsUtil.getLoggedUsuario();
 
-        Veiculo veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculo, username);
+        List<VeiculoDTO> veiculos = veiculoService.listarVeiculosPorUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.OK).body(veiculos);
+    }
+/*
+    @PutMapping("/{id}")
+    public ResponseEntity<VeiculoDTO> atualizarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculo) {
+        Usuario usuario = userDetailsUtil.getLoggedUsuario();
+
+        VeiculoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculo, usuario);
         if (veiculoAtualizado != null) {
             return new ResponseEntity<>(veiculoAtualizado, HttpStatus.OK);
         } else {
@@ -73,13 +71,13 @@ public class VeiculoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirVeiculo(@PathVariable Long id) {
-        String username = getLoggedUsername();
+        Usuario usuario = userDetailsUtil.getLoggedUsuario();
 
-        boolean removido = veiculoService.excluirVeiculo(id, username);
+        boolean removido = veiculoService.excluirVeiculo(id, usuario);
         if (removido) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 }

@@ -1,9 +1,9 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
-@RestController
-@RequestMapping("/pagamento")
+//@RestController
+//@RequestMapping("/pagamento")
 public class PagamentoController {
-
+    /*
     private final PagamentoService pagamentoService;
 
     @Autowired
@@ -47,5 +47,5 @@ public class PagamentoController {
     public ResponseEntity<Void> excluirFormaPagamento(@PathVariable Long id) {
         formaPagamentoService.excluirFormaPagamento(id);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }
