@@ -28,7 +28,7 @@ public class VeiculoServiceImpl implements VeiculoService {
     public VeiculoDTO cadastrarVeiculo(VeiculoDTO veiculoDTO, Usuario usuario) {
 
         Veiculo veiculo = veiculoMapper.toEntity(veiculoDTO);
-        veiculo.setUsuario(usuario);
+        veiculo.setIdUsuario(usuario.getIdUsuario());
 
         veiculo = veiculoRepository.save(veiculo);
         return veiculoMapper.toDTO(veiculo);
@@ -50,5 +50,13 @@ public class VeiculoServiceImpl implements VeiculoService {
     @Override
     public VeiculoDTO atualizarVeiculo(Long id, VeiculoDTO veiculo, Usuario usuario) {
         return null;
+    }
+
+    @Override
+    public void excluirVeiculo(Long id, Usuario usuario) {
+        Veiculo veiculo = veiculoRepository.findByIdAndIdUsuario(id, usuario.getIdUsuario())
+                .orElseThrow(() -> new RuntimeException("Veiculo com ID " + id + " não encontrado"));
+
+        veiculoRepository.delete(veiculo);
     }
 }

@@ -56,28 +56,11 @@ public class VeiculoController {
         List<VeiculoDTO> veiculos = veiculoService.listarVeiculosPorUsuario(usuario);
         return ResponseEntity.status(HttpStatus.OK).body(veiculos);
     }
-/*
-    @PutMapping("/{id}")
-    public ResponseEntity<VeiculoDTO> atualizarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculo) {
-        Usuario usuario = userDetailsUtil.getLoggedUsuario();
-
-        VeiculoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculo, usuario);
-        if (veiculoAtualizado != null) {
-            return new ResponseEntity<>(veiculoAtualizado, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirVeiculo(@PathVariable Long id) {
         Usuario usuario = userDetailsUtil.getLoggedUsuario();
-
-        boolean removido = veiculoService.excluirVeiculo(id, usuario);
-        if (removido) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
+        veiculoService.excluirVeiculo(id, usuario);
+        return ResponseEntity.noContent().build();
+    }
 }

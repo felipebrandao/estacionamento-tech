@@ -13,4 +13,6 @@ public interface VeiculoService {
     VeiculoDTO buscarVeiculoPorIdEUsuario(Long id, Usuario usuario);
 
     VeiculoDTO atualizarVeiculo(Long id, VeiculoDTO veiculo, Usuario usuario);
+
+    void excluirVeiculo(Long id, Usuario usuario);
 }
