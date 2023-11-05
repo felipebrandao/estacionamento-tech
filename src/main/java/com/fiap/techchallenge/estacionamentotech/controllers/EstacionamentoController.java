@@ -2,6 +2,7 @@ package com.fiap.techchallenge.estacionamentotech.controllers;
 
 import com.fiap.techchallenge.estacionamentotech.dtos.LocalEstacionamentoDTO;
 import com.fiap.techchallenge.estacionamentotech.dtos.VeiculoEstacionadoDTO;
+import com.fiap.techchallenge.estacionamentotech.dtos.VoucherEstacionamentoDTO;
 import com.fiap.techchallenge.estacionamentotech.services.EstacionamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,6 @@ import java.util.List;
 @RequestMapping("/estacionamento")
 public class EstacionamentoController {
 
-    /*
     private final EstacionamentoService estacionamentoService;
 
     @Autowired
@@ -41,10 +41,10 @@ public class EstacionamentoController {
     }
 
     @PostMapping("/estender-horas/{idVeiculoEstacionado}")
-    public ResponseEntity<VeiculoEstacionadoDTO> adicionarMaisHorasDeEstacionamento(@PathVariable Long idVeiculoEstacionado, @RequestParam int horas) {
-        VeiculoEstacionadoDTO veiculoEstacionado = estacionamentoService.adicionarHorasDeEstacionamento(idVeiculoEstacionado, horas);
+    public ResponseEntity<VeiculoEstacionadoDTO> adicionarMaisHorasDeEstacionamento(@PathVariable Long idVeiculoEstacionado, @RequestParam VoucherEstacionamentoDTO voucherEstacionamentoDTO) {
+        VeiculoEstacionadoDTO veiculoEstacionado = estacionamentoService.adicionarHorasDeEstacionamento(idVeiculoEstacionado, voucherEstacionamentoDTO);
         return new ResponseEntity<>(veiculoEstacionado, HttpStatus.OK);
     }
-*/
+
 }
 

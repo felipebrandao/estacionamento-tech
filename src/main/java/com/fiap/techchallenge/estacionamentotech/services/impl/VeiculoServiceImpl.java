@@ -7,6 +7,7 @@ import com.fiap.techchallenge.estacionamentotech.mappers.VeiculoMapper;
 import com.fiap.techchallenge.estacionamentotech.repositories.VeiculoRepository;
 import com.fiap.techchallenge.estacionamentotech.services.VeiculoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     private final VeiculoMapper veiculoMapper;
 
+    @Autowired
     public VeiculoServiceImpl(VeiculoRepository veiculoRepository, VeiculoMapper veiculoMapper) {
         this.veiculoRepository = veiculoRepository;
         this.veiculoMapper = veiculoMapper;

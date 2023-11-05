@@ -1,12 +1,16 @@
 package com.fiap.techchallenge.estacionamentotech.dtos;
 
-import java.time.LocalDateTime;
+import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
 public class VeiculoEstacionadoDTO {
 
     private Long veiculoId;
     private Long localEstacionamentoId;
     private LocalDateTime dataHoraInicio;
-    private Long qtdeHorasDeEstacionamento;
+    private List<VoucherEstacionamentoDTO> voucherEstacionamento;
 
 }

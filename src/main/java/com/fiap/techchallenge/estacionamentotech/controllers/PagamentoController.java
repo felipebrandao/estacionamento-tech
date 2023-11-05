@@ -1,9 +1,9 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
-//@RestController
-//@RequestMapping("/pagamento")
+@RestController
+@RequestMapping("/pagamento")
 public class PagamentoController {
-    /*
+
     private final PagamentoService pagamentoService;
 
     @Autowired
@@ -12,23 +12,13 @@ public class PagamentoController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<PagamentoDTO>> listarFormasPagamento() {
+    public ResponseEntity<List<PagamentoDTO>> listarFormaPagamento() {
         List<FormaPagamento> formasPagamento = formaPagamentoService.listarFormasPagamento();
         return ResponseEntity.ok(formasPagamento);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FormaPagamento> buscarFormaPagamentoPorId(@PathVariable Long id) {
-        FormaPagamento formaPagamento = formaPagamentoService.buscarFormaPagamentoPorId(id);
-        if (formaPagamento != null) {
-            return ResponseEntity.ok(formaPagamento);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @PostMapping("/")
-    public ResponseEntity<FormaPagamento> criarFormaPagamento(@RequestBody FormaPagamento formaPagamento) {
+    public ResponseEntity<FormaPagamento> cadastrarFormaPagamento(@RequestBody FormaPagamento formaPagamento) {
         FormaPagamento novaFormaPagamento = formaPagamentoService.criarFormaPagamento(formaPagamento);
         return ResponseEntity.ok(novaFormaPagamento);
     }
@@ -47,5 +37,5 @@ public class PagamentoController {
     public ResponseEntity<Void> excluirFormaPagamento(@PathVariable Long id) {
         formaPagamentoService.excluirFormaPagamento(id);
         return ResponseEntity.noContent().build();
-    }*/
+    }
 }

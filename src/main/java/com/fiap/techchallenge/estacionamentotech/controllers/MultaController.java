@@ -15,4 +15,6 @@ public class MultaController {
     public ResponseEntity<String> helloWorld(){
         return ResponseEntity.ok("Hello World");
     }
+
+    //TODO Registrar multa
 }
