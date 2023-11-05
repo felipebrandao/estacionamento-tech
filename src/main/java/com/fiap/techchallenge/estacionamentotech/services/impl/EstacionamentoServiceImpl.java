@@ -15,6 +15,7 @@ import com.fiap.techchallenge.estacionamentotech.services.PagamentoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,16 +57,17 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
         return localEstacionamentoMapper.toDTOList(localEstacionamentoList);
     }
 
-    //TODO tem que ser uma transação para registrar o pagamento e também o estacionamento
+    @Transactional
     @Override
     public VeiculoEstacionadoDTO registrarEstacionamento(VeiculoEstacionadoDTO veiculoEstacionadoDTO, Usuario usuario) {
 
-        Optional<VeiculoEstacionado> buscaVeiculoEstacionado = veiculoEstacionadoRepository.findByIdVeiculoAndStatusTrue(veiculoEstacionadoDTO.getVeiculoId());
+        Optional<VeiculoEstacionado> buscaVeiculoEstacionado =
+                veiculoEstacionadoRepository.findByIdVeiculoAndStatusTrue(veiculoEstacionadoDTO.getIdVeiculo());
 
         if (buscaVeiculoEstacionado.isPresent()) {
             VeiculoEstacionado veiculoEstacionadoEncontrado = buscaVeiculoEstacionado.get();
 
-            if(veiculoEstacionadoEncontrado.getIdLocalEstacionamento().equals(veiculoEstacionadoDTO.getLocalEstacionamentoId())){
+            if(veiculoEstacionadoEncontrado.getIdLocalEstacionamento().equals(veiculoEstacionadoDTO.getIdLocalEstacionamento())){
                 throw new RuntimeException("Veiculo já está estacionado neste local, verifique se deseja adicionar mais horas de estacioanemnto.");
             }
 
@@ -75,9 +77,11 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
             veiculoEstacionado.setIdUsuario(usuario.getIdUsuario());
 
             veiculoEstacionado = veiculoEstacionadoRepository.save(veiculoEstacionado);
-            //TODO ao concluir enviar email com pagamento e veiculo estacionado
-            pagamentoService.registrarPagamento(veiculoEstacionado.getIdLocalEstacionamento(),
+            //TODO receber o comprovante de pagamento
+            pagamentoService.registrarPagamento(veiculoEstacionado.getId(),
                                                 veiculoEstacionadoDTO.getVoucherEstacionamento().get(0));
+
+            //TODO enviar email com pagamento e veiculo estacionado
 
         }
 

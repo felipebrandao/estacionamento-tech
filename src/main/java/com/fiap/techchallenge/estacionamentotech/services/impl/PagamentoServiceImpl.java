@@ -8,6 +8,7 @@ import com.fiap.techchallenge.estacionamentotech.services.EmailService;
 import com.fiap.techchallenge.estacionamentotech.services.PagamentoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,9 +22,12 @@ public class PagamentoServiceImpl implements PagamentoService {
     private VoucherEstacionamentoRepository voucherEstacionamentoRepository;
 
     @Autowired
-    public PagamentoServiceImpl(EmailService emailService, VoucherEstacionamentoMapper voucherEstacionamentoMapper) {
+    public PagamentoServiceImpl(EmailService emailService,
+                                VoucherEstacionamentoMapper voucherEstacionamentoMapper,
+                                VoucherEstacionamentoRepository voucherEstacionamentoRepository) {
         this.emailService = emailService;
         this.voucherEstacionamentoMapper = voucherEstacionamentoMapper;
+        this.voucherEstacionamentoRepository = voucherEstacionamentoRepository;
     }
 
     @Override
@@ -34,5 +38,7 @@ public class PagamentoServiceImpl implements PagamentoService {
         voucherEstacionamento.setIdVeiculoEstacionado(idVeiculoEstacionado);
 
         voucherEstacionamento = voucherEstacionamentoRepository.save(voucherEstacionamento);
+
+        //TODO retornar o voucher com a comprovação do pagamento
     }
 }

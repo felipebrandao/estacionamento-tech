@@ -33,13 +33,13 @@ public class VoucherEstacionamento {
 
     @Column(name = "formaDePagamento")
     @Enumerated(EnumType.STRING)
-    private FormaDePagamentoEnum formaDePagamentoEnum;
+    private FormaDePagamentoEnum formaDePagamento;
 
-    public VoucherEstacionamento(Long id, Long idVeiculoEstacionado, LocalDateTime dataHoraRegistro, Long qtdeDeHorasEstacionado, FormaDePagamentoEnum formaDePagamentoEnum) {
+    public VoucherEstacionamento(Long id, Long idVeiculoEstacionado, LocalDateTime dataHoraRegistro, Long qtdeDeHorasEstacionado, FormaDePagamentoEnum formaDePagamento) {
         this.id = id;
         this.idVeiculoEstacionado = idVeiculoEstacionado;
         this.dataHoraRegistro = dataHoraRegistro;
         this.qtdeDeHorasEstacionado = qtdeDeHorasEstacionado;
-        this.formaDePagamentoEnum = formaDePagamentoEnum;
+        this.formaDePagamento = formaDePagamento;
     }
 }
