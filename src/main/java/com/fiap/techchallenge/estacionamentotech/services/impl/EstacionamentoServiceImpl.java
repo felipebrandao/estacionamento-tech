@@ -4,6 +4,7 @@ import com.fiap.techchallenge.estacionamentotech.dtos.LocalEstacionamentoDTO;
 import com.fiap.techchallenge.estacionamentotech.dtos.VeiculoEstacionadoDTO;
 import com.fiap.techchallenge.estacionamentotech.dtos.VoucherEstacionamentoDTO;
 import com.fiap.techchallenge.estacionamentotech.entities.LocalEstacionamento;
+import com.fiap.techchallenge.estacionamentotech.entities.VeiculoEstacionado;
 import com.fiap.techchallenge.estacionamentotech.mappers.LocalEstacionamentoMapper;
 import com.fiap.techchallenge.estacionamentotech.repositories.LocalEstacionamentoRepository;
 import com.fiap.techchallenge.estacionamentotech.services.EstacionamentoService;
@@ -45,6 +46,7 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
     public VeiculoEstacionadoDTO registrarEstacionamento(VeiculoEstacionadoDTO veiculoEstacionadoDTO) {
 
         //TODO verificar se veículo já está estacionado
+        VeiculoEstacionadoRepository.findByIdVeiculoAndStatusTrue(veiculoEstacionadoDTO.getVeiculoId());
         //TODO ao concluir enviar email com pagamento e veiculo estacionado
         pagamentoService.registrarPagamento(veiculoEstacionadoDTO.getVeiculoId(), veiculoEstacionadoDTO.getVoucherEstacionamento().get(0));
 

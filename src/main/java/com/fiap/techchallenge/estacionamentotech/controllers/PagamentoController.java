@@ -1,5 +1,14 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
+import com.fiap.techchallenge.estacionamentotech.dtos.PagamentoDTO;
+import com.fiap.techchallenge.estacionamentotech.enums.FormaDePagamentoEnum;
+import com.fiap.techchallenge.estacionamentotech.services.PagamentoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/pagamento")
 public class PagamentoController {
@@ -11,7 +20,7 @@ public class PagamentoController {
         this.pagamentoService = pagamentoService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/listar")
     public ResponseEntity<List<PagamentoDTO>> listarFormaPagamento() {
         List<FormaPagamento> formasPagamento = formaPagamentoService.listarFormasPagamento();
         return ResponseEntity.ok(formasPagamento);
@@ -23,9 +32,25 @@ public class PagamentoController {
         return ResponseEntity.ok(novaFormaPagamento);
     }
 
+    public ResponseEntity<List<PagamentoDTO>> listarFormasPagamento() {
+        List<FormaDePagamentoEnum> formasPagamento = pagamentoService.listarFormasPagamento();
+        return ResponseEntity.ok(formasPagamento);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FormaDePagamentoEnum> buscarFormaPagamentoPorId(@PathVariable Long id) {
+        FormaDePagamentoEnum formaPagamento = pagamentoService.buscarFormaPagamentoPorId(id);
+        if (formaPagamento != null) {
+            return ResponseEntity.ok(formaPagamento);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @PutMapping("/{id}")
-    public ResponseEntity<FormaPagamento> atualizarFormaPagamento(@PathVariable Long id, @RequestBody FormaPagamento formaPagamento) {
-        FormaPagamento formaPagamentoAtualizada = formaPagamentoService.atualizarFormaPagamento(id, formaPagamento);
+    public ResponseEntity<FormaDePagamentoEnum> atualizarFormaPagamento(@PathVariable Long id, @RequestBody FormaDePagamentoEnum formaPagamento) {
+        FormaDePagamentoEnum formaPagamentoAtualizada = pagamentoService.atualizarFormaPagamento(id, formaPagamento);
         if (formaPagamentoAtualizada != null) {
             return ResponseEntity.ok(formaPagamentoAtualizada);
         } else {
@@ -35,7 +60,7 @@ public class PagamentoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirFormaPagamento(@PathVariable Long id) {
-        formaPagamentoService.excluirFormaPagamento(id);
+        pagamentoService.excluirFormaPagamento(id);
         return ResponseEntity.noContent().build();
     }
 }

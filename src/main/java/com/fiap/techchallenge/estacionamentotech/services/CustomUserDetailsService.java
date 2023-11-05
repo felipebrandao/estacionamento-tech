@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.estacionamentotech.services;
 
 import com.fiap.techchallenge.estacionamentotech.entities.Usuario;
-import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuario;
+import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuarioEnum;
 import com.fiap.techchallenge.estacionamentotech.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,9 +29,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if (usuario.getTipoUsuario() == TipoUsuario.COMUM) {
+        if (usuario.getTipoUsuarioEnum() == TipoUsuarioEnum.COMUM) {
             authorities.add(new SimpleGrantedAuthority("COMUM"));
-        } else if (usuario.getTipoUsuario() == TipoUsuario.FISCAL) {
+        } else if (usuario.getTipoUsuarioEnum() == TipoUsuarioEnum.FISCAL) {
             authorities.add(new SimpleGrantedAuthority("FISCAL"));
         }
 

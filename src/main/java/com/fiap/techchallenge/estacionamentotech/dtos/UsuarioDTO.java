@@ -2,7 +2,7 @@ package com.fiap.techchallenge.estacionamentotech.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuario;
+import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuarioEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
@@ -32,7 +32,7 @@ public class UsuarioDTO {
     private String cpf;
 
     @JsonIgnore
-    private TipoUsuario tipoUsuario;
+    private TipoUsuarioEnum tipoUsuarioEnum;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "Senha é um campo obrigatório e não pode estar em branco")

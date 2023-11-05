@@ -2,7 +2,6 @@ package com.fiap.techchallenge.estacionamentotech.services.impl;
 
 import com.fiap.techchallenge.estacionamentotech.dtos.UsuarioDTO;
 import com.fiap.techchallenge.estacionamentotech.entities.Usuario;
-import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuario;
 import com.fiap.techchallenge.estacionamentotech.exceptions.UsuarioExisteException;
 import com.fiap.techchallenge.estacionamentotech.mappers.UsuarioMapper;
 import com.fiap.techchallenge.estacionamentotech.repositories.UsuarioRepository;
