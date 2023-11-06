@@ -10,8 +10,10 @@ import com.fiap.techchallenge.estacionamentotech.mappers.LocalEstacionamentoMapp
 import com.fiap.techchallenge.estacionamentotech.mappers.VeiculoEstacionadoMapper;
 import com.fiap.techchallenge.estacionamentotech.repositories.LocalEstacionamentoRepository;
 import com.fiap.techchallenge.estacionamentotech.repositories.VeiculoEstacionadoRepository;
+import com.fiap.techchallenge.estacionamentotech.services.EmailService;
 import com.fiap.techchallenge.estacionamentotech.services.EstacionamentoService;
 import com.fiap.techchallenge.estacionamentotech.services.PagamentoService;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,18 +31,21 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
     private VeiculoEstacionadoRepository veiculoEstacionadoRepository;
     private VeiculoEstacionadoMapper veiculoEstacionadoMapper;
     private PagamentoService pagamentoService;
+    private EmailService emailService;
 
     @Autowired
     public EstacionamentoServiceImpl(LocalEstacionamentoRepository localEstacionamentoRepository,
                                      LocalEstacionamentoMapper localEstacionamentoMapper,
                                      VeiculoEstacionadoRepository veiculoEstacionadoRepository,
                                      VeiculoEstacionadoMapper veiculoEstacionadoMapper,
-                                     PagamentoService pagamentoService) {
+                                     PagamentoService pagamentoService,
+                                     EmailService emailService) {
         this.localEstacionamentoRepository = localEstacionamentoRepository;
         this.localEstacionamentoMapper = localEstacionamentoMapper;
         this.veiculoEstacionadoRepository = veiculoEstacionadoRepository;
         this.veiculoEstacionadoMapper = veiculoEstacionadoMapper;
         this.pagamentoService = pagamentoService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -61,16 +66,13 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
     @Override
     public VeiculoEstacionadoDTO registrarEstacionamento(VeiculoEstacionadoDTO veiculoEstacionadoDTO, Usuario usuario) {
 
+        VeiculoEstacionadoDTO registroVeiculoEstacionadoDTO = null;
+
         Optional<VeiculoEstacionado> buscaVeiculoEstacionado =
                 veiculoEstacionadoRepository.findByIdVeiculoAndStatusTrue(veiculoEstacionadoDTO.getIdVeiculo());
 
         if (buscaVeiculoEstacionado.isPresent()) {
-            VeiculoEstacionado veiculoEstacionadoEncontrado = buscaVeiculoEstacionado.get();
-
-            if(veiculoEstacionadoEncontrado.getIdLocalEstacionamento().equals(veiculoEstacionadoDTO.getIdLocalEstacionamento())){
-                throw new RuntimeException("Veiculo já está estacionado neste local, verifique se deseja adicionar mais horas de estacioanemnto.");
-            }
-
+            throw new RuntimeException("Veiculo já está estacionado neste local, verifique se deseja adicionar mais horas de estacioanemnto.");
         } else {
 
             VeiculoEstacionado veiculoEstacionado = veiculoEstacionadoMapper.toEntity(veiculoEstacionadoDTO);
@@ -78,14 +80,20 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
             veiculoEstacionado = veiculoEstacionadoRepository.save(veiculoEstacionado);
             //TODO receber o comprovante de pagamento
-            pagamentoService.registrarPagamento(veiculoEstacionado.getId(),
-                                                veiculoEstacionadoDTO.getVoucherEstacionamento().get(0));
+            VoucherEstacionamentoDTO voucherEstacionamentoDTO = pagamentoService.registrarPagamento(veiculoEstacionado.getId(),
+                    veiculoEstacionadoDTO.getVoucherEstacionamento().get(0));
 
             //TODO enviar email com pagamento e veiculo estacionado
+            registroVeiculoEstacionadoDTO = veiculoEstacionadoMapper.toDTO(veiculoEstacionado);
 
+            try {
+                emailService.enviarNotificacaoDeVeiculoEstacionadoEComprovanteDePagamento(registroVeiculoEstacionadoDTO);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return null;
+        return registroVeiculoEstacionadoDTO;
     }
 
     @Override
@@ -93,6 +101,8 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
         //TODO verificar se veículo já está estacionado, ou expirou o prazo, criar um novo estacionamento
         //T0D0 registrar pagamento do estacionamento
         //TODO adicionar voucher ao estacionamento
+
+
         return null;
     }
 }

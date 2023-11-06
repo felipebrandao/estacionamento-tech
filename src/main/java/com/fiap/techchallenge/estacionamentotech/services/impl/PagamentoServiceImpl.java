@@ -4,11 +4,9 @@ import com.fiap.techchallenge.estacionamentotech.dtos.VoucherEstacionamentoDTO;
 import com.fiap.techchallenge.estacionamentotech.entities.VoucherEstacionamento;
 import com.fiap.techchallenge.estacionamentotech.mappers.VoucherEstacionamentoMapper;
 import com.fiap.techchallenge.estacionamentotech.repositories.VoucherEstacionamentoRepository;
-import com.fiap.techchallenge.estacionamentotech.services.EmailService;
 import com.fiap.techchallenge.estacionamentotech.services.PagamentoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,12 +15,12 @@ import java.time.LocalDateTime;
 @Service
 public class PagamentoServiceImpl implements PagamentoService {
 
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
     private VoucherEstacionamentoMapper voucherEstacionamentoMapper;
     private VoucherEstacionamentoRepository voucherEstacionamentoRepository;
 
     @Autowired
-    public PagamentoServiceImpl(EmailService emailService,
+    public PagamentoServiceImpl(EmailServiceImpl emailService,
                                 VoucherEstacionamentoMapper voucherEstacionamentoMapper,
                                 VoucherEstacionamentoRepository voucherEstacionamentoRepository) {
         this.emailService = emailService;
@@ -31,7 +29,7 @@ public class PagamentoServiceImpl implements PagamentoService {
     }
 
     @Override
-    public void registrarPagamento(Long idVeiculoEstacionado, VoucherEstacionamentoDTO voucherEstacionamentoDTO) {
+    public VoucherEstacionamentoDTO registrarPagamento(Long idVeiculoEstacionado, VoucherEstacionamentoDTO voucherEstacionamentoDTO) {
 
         VoucherEstacionamento voucherEstacionamento = voucherEstacionamentoMapper.toEntity(voucherEstacionamentoDTO);
         voucherEstacionamento.setDataHoraRegistro(LocalDateTime.now());
@@ -39,6 +37,6 @@ public class PagamentoServiceImpl implements PagamentoService {
 
         voucherEstacionamento = voucherEstacionamentoRepository.save(voucherEstacionamento);
 
-        //TODO retornar o voucher com a comprovação do pagamento
+        return voucherEstacionamentoMapper.toDTO(voucherEstacionamento);
     }
 }
