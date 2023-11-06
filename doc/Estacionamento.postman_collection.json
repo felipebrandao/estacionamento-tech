@@ -405,6 +405,34 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Envio email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to\": \"sribeiro.thalita@gmail.com\",\r\n    \"subject\": \"Assunto do E-mail\",\r\n    \"text\": \"Texto do E-mail com as tags de substituição [[NOME_DO_CLIENTE]], [[DATA_HORA]], [[VALOR_PAGO]], [[LOCAL]]\",\r\n    \"clienteId\": 123,\r\n    \"nomeDoCliente\": \"teste estacionamento\",\r\n    \"dataHora\": \"2023-11-05 10:00\",\r\n    \"valorPago\": \"50.00\",\r\n    \"local\": \"Local do pagamento\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/enviar-email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"enviar-email"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
