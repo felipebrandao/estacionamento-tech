@@ -19,5 +19,4 @@ public class VoucherEstacionamentoDTO {
     private Long qtdeDeHorasEstacionado;
     @JsonProperty
     private FormaDePagamentoEnum formaDePagamento;
-
 }
