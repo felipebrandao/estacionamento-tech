@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class LocalEstacionamentoDTO {
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     @JsonProperty

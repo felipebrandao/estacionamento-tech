@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 public class VeiculoEstacionadoDTO {
-
     @JsonProperty
     private Long idVeiculo;
     @JsonProperty
@@ -17,5 +16,4 @@ public class VeiculoEstacionadoDTO {
     private LocalDateTime dataHoraInicio;
     @JsonProperty
     private List<VoucherEstacionamentoDTO> voucherEstacionamento;
-
 }

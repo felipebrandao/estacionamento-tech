@@ -6,10 +6,8 @@ import lombok.Data;
 
 @Data
 public class VoucherEstacionamentoDTO {
-
     @JsonProperty
     private Long qtdeDeHorasEstacionado;
     @JsonProperty
     private FormaDePagamentoEnum formaDePagamento;
-
 }

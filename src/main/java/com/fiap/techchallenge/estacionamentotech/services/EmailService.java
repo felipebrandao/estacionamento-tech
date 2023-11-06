@@ -47,7 +47,7 @@ public class EmailService {
             request.setEndpoint(sendGridEndpoint);
             request.setBody(mail.build());
 
-            request.addHeader("Authorization", "Bearer " + sendGridApiKey);  // Adicione a chave da API no cabeçalho
+            request.addHeader("Authorization", "Bearer " + sendGridApiKey);
 
             Response response = sendGrid.api(request);
 
