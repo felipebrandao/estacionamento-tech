@@ -1,11 +1,11 @@
 package com.fiap.techchallenge.estacionamentotech.dtos;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class MultaDTO {
-    private Long id;
-    private String veiculo;
+    private Long idVeiculo;
+    private Long idLocalEstacionamento;
 }

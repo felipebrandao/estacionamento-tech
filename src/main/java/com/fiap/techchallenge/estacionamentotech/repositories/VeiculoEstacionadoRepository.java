@@ -9,4 +9,7 @@ import java.util.Optional;
 public interface VeiculoEstacionadoRepository extends JpaRepository<VeiculoEstacionado, Long> {
 
     Optional<VeiculoEstacionado> findByIdVeiculoAndStatusTrue(Long veiculoId);
+
+    Optional<VeiculoEstacionado> findByIdVeiculoAndIdLocalEstacionamentoAndStatusTrue(Long idVeiculo,
+                                                                                      Long idLocalEstacionamento);
 }

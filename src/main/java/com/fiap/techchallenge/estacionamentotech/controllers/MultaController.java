@@ -1,6 +1,7 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
 import com.fiap.techchallenge.estacionamentotech.dtos.MultaDTO;
+import com.fiap.techchallenge.estacionamentotech.entities.Usuario;
 import com.fiap.techchallenge.estacionamentotech.services.MultaService;
 import com.fiap.techchallenge.estacionamentotech.utils.UserDetailsUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +26,11 @@ public class MultaController {
         this.userDetailsUtil = userDetailsUtil;
     }
 
-    /*
-    //TODO Registrar multa
     @PostMapping("/registrar")
-    public ResponseEntity<MultaDTO> registrarMulta(@RequestBody MultaDTO multaDto) {
-        UserDetails userDetails = userDetailsUtil.getLoggedUserDetails();
-        String username = userDetails.getUsername();
-
-        multaDto.setUsuario(username);
-
-        MultaDTO novaMulta = multaService.registrarMulta(multaDto);
-
+    public ResponseEntity<MultaDTO> registrarMulta(@RequestBody MultaDTO multaDTO) {
+        Usuario usuario = userDetailsUtil.getLoggedUsuario();
+        MultaDTO novaMulta = multaService.registrarMulta(multaDTO, usuario);
         return new ResponseEntity<>(novaMulta, CREATED);
     }
-    */
+
 }
