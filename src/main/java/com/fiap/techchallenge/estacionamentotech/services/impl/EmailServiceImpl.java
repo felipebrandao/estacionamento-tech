@@ -16,38 +16,44 @@ import java.io.IOException;
 @Service
 public class EmailServiceImpl implements EmailService {
 
+    private final JavaMailSender javaMailSender;
+    private final String conteudoHtml;
+    private static final String TEMPLATE_FILE_PATH = "resources/templates/email-template.html";
+    private static final String TO_EMAIL = "to";
+    private static final String EMAIL_SUBJECT = "subject";
+
     @Autowired
-    private JavaMailSender javaMailSender;
-
-    private String carregarConteudoHtml(String caminhoArquivo) throws IOException {
-        File arquivoHtml = new File(caminhoArquivo);
-        char[] buffer = new char[(int) arquivoHtml.length()];
-        FileReader fileReader = new FileReader(arquivoHtml);
-        fileReader.read(buffer);
-        return new String(buffer);
-    }
-
-    public void enviarNotificacaoDeVeiculoEstacionadoEComprovanteDePagamento(VeiculoEstacionadoDTO veiculoEstacionadoDTO) {
-
-        String conteudoHtml = null;
+    public EmailServiceImpl(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
         try {
-            conteudoHtml = carregarConteudoHtml("resources/templates/email-template.html");
+            this.conteudoHtml = carregarConteudoHtml();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        conteudoHtml = conteudoHtml.replace("[[NOME_DO_CLIENTE]]", veiculoEstacionadoDTO.getIdVeiculo().toString());
-        conteudoHtml = conteudoHtml.replace("[[DATA_HORA]]", veiculoEstacionadoDTO.getDataHoraInicio().toString());
-        conteudoHtml = conteudoHtml.replace("[[VALOR_PAGO]]", veiculoEstacionadoDTO.getIdLocalEstacionamento().toString());
-        conteudoHtml = conteudoHtml.replace("[[LOCAL]]", veiculoEstacionadoDTO.getIdLocalEstacionamento().toString());
+    private String carregarConteudoHtml() throws IOException {
+        File arquivoHtml = new File(TEMPLATE_FILE_PATH);
+        char[] buffer = new char[(int) arquivoHtml.length()];
+        try (FileReader fileReader = new FileReader(arquivoHtml)) {
+            fileReader.read(buffer);
+        }
+        return new String(buffer);
+    }
+
+    public void enviarNotificacaoDeVeiculoEstacionadoEComprovanteDePagamento(VeiculoEstacionadoDTO veiculoEstacionadoDTO) throws MessagingException {
+        String conteudoHtmlFinal = conteudoHtml
+                .replace("[[NOME_DO_CLIENTE]]", veiculoEstacionadoDTO.getIdVeiculo().toString())
+                .replace("[[DATA_HORA]]", veiculoEstacionadoDTO.getDataHoraInicio().toString())
+                .replace("[[VALOR_PAGO]]", veiculoEstacionadoDTO.getIdLocalEstacionamento().toString())
+                .replace("[[LOCAL]]", veiculoEstacionadoDTO.getIdLocalEstacionamento().toString());
 
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
         try {
-            helper = new MimeMessageHelper(message, true);
-            helper.setTo("teste");
-            helper.setSubject("teste");
-            helper.setText(conteudoHtml, true);
+            helper.setTo(TO_EMAIL);
+            helper.setSubject(EMAIL_SUBJECT);
+            helper.setText(conteudoHtmlFinal, true);
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
