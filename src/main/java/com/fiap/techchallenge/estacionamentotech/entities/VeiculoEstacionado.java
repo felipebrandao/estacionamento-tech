@@ -1,6 +1,14 @@
 package com.fiap.techchallenge.estacionamentotech.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,15 +16,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Table(name = "veiculoEstacionado")
 @NoArgsConstructor
+@Entity
 @Data
 public class VeiculoEstacionado {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(name = "id_usuario")

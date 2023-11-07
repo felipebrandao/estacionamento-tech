@@ -16,7 +16,7 @@ public class VoucherEstacionamentoDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataHoraRegistro;
     @JsonProperty
-    private Long qtdeDeHorasEstacionado;
+    private Long horasEstacionado;
     @JsonProperty
     private FormaDePagamentoEnum formaDePagamento;
 }

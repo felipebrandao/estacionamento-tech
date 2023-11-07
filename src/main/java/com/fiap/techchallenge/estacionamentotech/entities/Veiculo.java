@@ -1,18 +1,28 @@
 package com.fiap.techchallenge.estacionamentotech.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Table(name = "veiculo")
 @NoArgsConstructor
+@Entity
 @Data
 public class Veiculo {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(name = "marca")

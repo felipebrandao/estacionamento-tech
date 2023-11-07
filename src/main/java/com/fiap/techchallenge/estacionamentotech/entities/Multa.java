@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-@Entity
-@Table(name = "multa")
 @NoArgsConstructor
+@Table(name = "multa")
+@Entity
 @Data
 public class Multa {
 

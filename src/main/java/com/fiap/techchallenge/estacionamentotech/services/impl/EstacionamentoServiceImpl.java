@@ -93,13 +93,13 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
             registroVeiculoEstacionadoDTO = veiculoEstacionadoMapper.toDTO(veiculoEstacionado);
             registroVeiculoEstacionadoDTO.getVoucherEstacionamento().add(voucherEstacionamentoDTO);
 
-            envioDeEmailEstacionamento(veiculoEstacionado.getId(), voucherEstacionamentoDTO, "Registro de Estacionamento");
+            envioDeEmailEstacionamento(veiculoEstacionado.getId(), "Registro de Estacionamento");
         }
 
         return registroVeiculoEstacionadoDTO;
     }
 
-    private void envioDeEmailEstacionamento(Long veiculoEstacionado, VoucherEstacionamentoDTO voucherEstacionamentoDTO, String assunto) {
+    private void envioDeEmailEstacionamento(Long veiculoEstacionado, String assunto) {
         EmailEstacionamentoDTO emailEstacionamento = veiculoEstacionadoRepository.findVeiculoEstacionadoByID(veiculoEstacionado);
         emailEstacionamento.setAssunto(assunto);
 
@@ -109,8 +109,8 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
         emailEstacionamento.getVoucherEstacionamentoDTOList().addAll(voucherEstacionamentoDTOList);
 
-        Long somaDeHoras = voucherEstacionamentoDTOList.stream()
-                .mapToLong(VoucherEstacionamentoDTO::getQtdeDeHorasEstacionado)
+        long somaDeHoras = voucherEstacionamentoDTOList.stream()
+                .mapToLong(VoucherEstacionamentoDTO::getHorasEstacionado)
                 .sum();
 
         LocalDateTime dataHoraFimEstacionamento = emailEstacionamento.getDataHoraInicioEstacionamento()
@@ -140,7 +140,7 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
         VoucherEstacionamentoDTO voucherEstacionamento = registrarVoucher(voucherEstacionamentoDTO, idVeiculoEstacionado);
 
-        envioDeEmailEstacionamento(idVeiculoEstacionado, voucherEstacionamentoDTO, "Registro de Estacionamento - Adicionado horas");
+        envioDeEmailEstacionamento(idVeiculoEstacionado, "Registro de Estacionamento - Adicionado horas");
 
         return voucherEstacionamento;
     }

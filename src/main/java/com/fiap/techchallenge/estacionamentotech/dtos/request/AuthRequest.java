@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.estacionamentotech.dtos;
+package com.fiap.techchallenge.estacionamentotech.dtos.request;
 
 import lombok.Data;
 
@@ -6,5 +6,4 @@ import lombok.Data;
 public class AuthRequest {
     private String username;
     private String password;
-
 }

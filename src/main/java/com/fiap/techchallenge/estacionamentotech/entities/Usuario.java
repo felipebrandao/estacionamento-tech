@@ -5,15 +5,18 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "usuario")
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @NoArgsConstructor
+@Table(name = "usuario")
+@Entity
 @Data
 public class Usuario {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long idUsuario;
 
     @Column(name = "nome")
@@ -26,7 +29,7 @@ public class Usuario {
     private String cpf;
 
     @Column(name = "tipoUsuario")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private TipoUsuarioEnum tipoUsuarioEnum;
 
     @Column(name = "senha")

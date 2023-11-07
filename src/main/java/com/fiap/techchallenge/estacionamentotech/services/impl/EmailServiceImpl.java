@@ -13,28 +13,25 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-
     private final ResourceLoader resourceLoader;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
+    @Autowired
     public EmailServiceImpl(ResourceLoader resourceLoader, JavaMailSender javaMailSender) {
         this.resourceLoader = resourceLoader;
         this.javaMailSender = javaMailSender;
     }
 
-    private String carregarConteudoHtml(String caminhoArquivo) throws IOException {
+    private String carregarConteudoHtml() throws IOException {
         try {
-            Resource resource = resourceLoader.getResource("classpath:" + caminhoArquivo);
+            Resource resource = resourceLoader.getResource("classpath:" + "/templates/email-template.html");
             byte[] byteArray = FileCopyUtils.copyToByteArray(resource.getInputStream());
             return new String(byteArray, StandardCharsets.UTF_8);
         } catch (IOException e) {
@@ -44,9 +41,9 @@ public class EmailServiceImpl implements EmailService {
 
     public void enviarNotificacaoDeVeiculoEstacionadoEComprovanteDePagamento(EmailEstacionamentoDTO emailEstacionamentoDTO) {
 
-        String conteudoHtml = null;
+        String conteudoHtml;
         try {
-            conteudoHtml = carregarConteudoHtml("/templates/email-template.html");
+            conteudoHtml = carregarConteudoHtml();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,21 +64,13 @@ public class EmailServiceImpl implements EmailService {
         conteudoHtml = conteudoHtml.replace("[$data_hora_fim_estacionamento]",
                                             emailEstacionamentoDTO.getDataHoraFimEstacionamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 
-        String conteudoVoucher = "";
+        StringBuilder conteudoVoucher = criarConteudoVoucher(emailEstacionamentoDTO);
 
-        for (VoucherEstacionamentoDTO voucherEstacionamentoDTO : emailEstacionamentoDTO.getVoucherEstacionamentoDTOList()) {
-            String linhaHTML = "<tr>" +
-                    "<td class=\"tg-0lax\">" + voucherEstacionamentoDTO.getQtdeDeHorasEstacionado() + "</td>" +
-                    "<td class=\"tg-0lax\">" + voucherEstacionamentoDTO.getFormaDePagamento() + "</td>" +
-                    "</tr>";
+        conteudoHtml = conteudoHtml.replace("[$conteudo_voucher]", conteudoVoucher.toString());
 
-            conteudoVoucher += linhaHTML;
-        }
-
-        conteudoHtml = conteudoHtml.replace("[$conteudo_voucher]", conteudoVoucher);
 
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
+        MimeMessageHelper helper;
         try {
             helper = new MimeMessageHelper(message, true);
             helper.setTo(emailEstacionamentoDTO.getEmail());
@@ -94,4 +83,17 @@ public class EmailServiceImpl implements EmailService {
         javaMailSender.send(message);
     }
 
+    private static StringBuilder criarConteudoVoucher(EmailEstacionamentoDTO emailEstacionamentoDTO) {
+        StringBuilder conteudoVoucher = new StringBuilder();
+
+        for (VoucherEstacionamentoDTO voucherEstacionamentoDTO : emailEstacionamentoDTO.getVoucherEstacionamentoDTOList()) {
+            String linhaHTML = "<tr>" +
+                    "<td class=\"tg-0lax\">" + voucherEstacionamentoDTO.getHorasEstacionado() + "</td>" +
+                    "<td class=\"tg-0lax\">" + voucherEstacionamentoDTO.getFormaDePagamento() + "</td>" +
+                    "</tr>";
+
+            conteudoVoucher.append(linhaHTML);
+        }
+        return conteudoVoucher;
+    }
 }

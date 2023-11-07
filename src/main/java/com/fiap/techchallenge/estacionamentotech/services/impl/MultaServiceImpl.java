@@ -4,6 +4,7 @@ import com.fiap.techchallenge.estacionamentotech.dtos.MultaDTO;
 import com.fiap.techchallenge.estacionamentotech.entities.Multa;
 import com.fiap.techchallenge.estacionamentotech.entities.Usuario;
 import com.fiap.techchallenge.estacionamentotech.entities.VeiculoEstacionado;
+import com.fiap.techchallenge.estacionamentotech.exceptions.VeiculoException;
 import com.fiap.techchallenge.estacionamentotech.mappers.MultaMapper;
 import com.fiap.techchallenge.estacionamentotech.repositories.MultaRepository;
 import com.fiap.techchallenge.estacionamentotech.repositories.VeiculoEstacionadoRepository;
@@ -37,8 +38,8 @@ public class MultaServiceImpl implements MultaService {
                 findByIdVeiculoAndIdLocalEstacionamentoAndStatusTrue(multaDTO.getIdVeiculo(),
                                                                      multaDTO.getIdLocalEstacionamento());
 
-        if (!buscaVeiculoEstacionado.isPresent()) {
-            throw new IllegalArgumentException("O veículo não está na rua.");
+        if (buscaVeiculoEstacionado.isEmpty()) {
+            throw new VeiculoException("O veículo não está na rua.");
         }
 
         Multa multa = multaMapper.toEntity(multaDTO);
