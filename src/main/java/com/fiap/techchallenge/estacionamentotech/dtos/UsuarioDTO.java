@@ -12,9 +12,9 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 @NoArgsConstructor
+@EqualsAndHashCode
 @Getter
 @Setter
-@EqualsAndHashCode
 public class UsuarioDTO {
 
     @JsonProperty

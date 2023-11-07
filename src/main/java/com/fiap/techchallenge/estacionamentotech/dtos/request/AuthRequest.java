@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.estacionamentotech.dtos;
+package com.fiap.techchallenge.estacionamentotech.dtos.request;
 
 import lombok.Getter;
 import lombok.Setter;

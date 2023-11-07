@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-@Entity
-@Table(name = "localEstacionamento")
 @NoArgsConstructor
+@Table(name = "localEstacionamento")
+@Entity
 @Data
 public class LocalEstacionamento {
     @Id

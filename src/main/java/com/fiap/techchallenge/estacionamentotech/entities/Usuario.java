@@ -1,21 +1,28 @@
 package com.fiap.techchallenge.estacionamentotech.entities;
 
 import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuarioEnum;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Enumerated;
 
-@Entity
-@Table(name = "usuario")
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @NoArgsConstructor
-@Getter
-@Setter
+@Table(name = "usuario")
+@Data
+@Entity
 public class Usuario {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long idUsuario;
 
     @Column(name = "nome")
@@ -28,7 +35,7 @@ public class Usuario {
     private String cpf;
 
     @Column(name = "tipoUsuario")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private TipoUsuarioEnum tipoUsuarioEnum;
 
     @Column(name = "senha")

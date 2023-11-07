@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.estacionamentotech.controllers;
 
-import com.fiap.techchallenge.estacionamentotech.dtos.AuthRequest;
-import com.fiap.techchallenge.estacionamentotech.dtos.AuthResponse;
+import com.fiap.techchallenge.estacionamentotech.dtos.request.AuthRequest;
+import com.fiap.techchallenge.estacionamentotech.dtos.response.AuthResponse;
 import com.fiap.techchallenge.estacionamentotech.security.JwtTokenProvider;
 import com.fiap.techchallenge.estacionamentotech.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;

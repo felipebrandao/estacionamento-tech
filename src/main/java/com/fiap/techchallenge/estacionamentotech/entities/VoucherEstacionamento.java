@@ -1,21 +1,33 @@
 package com.fiap.techchallenge.estacionamentotech.entities;
 
 import com.fiap.techchallenge.estacionamentotech.enums.FormaDePagamentoEnum;
-import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Enumerated;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Table(name = "voucherEstacionamento")
 @NoArgsConstructor
+@Entity
 @Data
 public class VoucherEstacionamento {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(name = "id_veiculo_estacionado")
@@ -32,7 +44,7 @@ public class VoucherEstacionamento {
     private Long qtdeDeHorasEstacionado;
 
     @Column(name = "formaDePagamento")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private FormaDePagamentoEnum formaDePagamento;
 
     public VoucherEstacionamento(Long id, Long idVeiculoEstacionado, LocalDateTime dataHoraRegistro, Long qtdeDeHorasEstacionado, FormaDePagamentoEnum formaDePagamento) {

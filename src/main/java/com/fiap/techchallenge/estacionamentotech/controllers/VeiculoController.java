@@ -32,11 +32,6 @@ public class VeiculoController {
         this.userDetailsUtil = userDetailsUtil;
     }
 
-    @GetMapping
-    public ResponseEntity<String> helloWorld(){
-        return ResponseEntity.ok("Hello World");
-    }
-
     @PostMapping
     public ResponseEntity<VeiculoDTO> cadastrarVeiculo(@RequestBody VeiculoDTO veiculo) {
         Usuario usuario = userDetailsUtil.getLoggedUsuario();

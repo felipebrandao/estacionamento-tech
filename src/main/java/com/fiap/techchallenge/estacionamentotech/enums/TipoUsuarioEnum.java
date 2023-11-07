@@ -2,8 +2,8 @@ package com.fiap.techchallenge.estacionamentotech.enums;
 
 public enum TipoUsuarioEnum {
 
-    COMUM("C"),
-    FISCAL("F");
+    COMUM("Comum"),
+    FISCAL("Fiscal");
 
     private String tipoUsuario;
 

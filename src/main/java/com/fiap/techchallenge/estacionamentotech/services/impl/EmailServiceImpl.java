@@ -1,6 +1,5 @@
 package com.fiap.techchallenge.estacionamentotech.services.impl;
 
-import com.fiap.techchallenge.estacionamentotech.dtos.EmailDataDTO;
 import com.fiap.techchallenge.estacionamentotech.dtos.VeiculoEstacionadoDTO;
 import com.fiap.techchallenge.estacionamentotech.services.EmailService;
 import jakarta.mail.MessagingException;
@@ -55,5 +54,4 @@ public class EmailServiceImpl implements EmailService {
 
         javaMailSender.send(message);
     }
-
 }
