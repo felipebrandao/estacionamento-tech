@@ -1,6 +1,16 @@
 package com.fiap.techchallenge.estacionamentotech.scheduler;
 
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
 public class EstacionamentoJob {
+
+
+    @Scheduled(fixedDelayString = "${job.execution.time}")
+    public void verificarEstacionamentosPertoDoFim() {
+        System.out.println("Executando job..");
+    }
 /*
     public void execute(JobExecutionContext context) throws JobExecutionException {
         // Lógica de verificação do estacionamento
