@@ -8,24 +8,49 @@
 <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
     <div style="background-color: #ffffff; max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
 
-        <h2 style="color: #333;">Recibo de Pagamento do Parquímetro</h2>
+        <h2 style="color: #333;">Recibo de Pagamento do Estacionamento Tech</h2>
 
-        <p style="color: #666;">Olá, [[NOME_DO_CLIENTE]],</p>
+        <p style="color: #666;">Olá, [$nome_usuario],</p>
 
-        <p style="color: #666;">Este é o recibo de pagamento do parquímetro.</p>
+        <p style="color: #666;">Este é o recibo de estacionamento.</p>
 
-        <p style="color: #666;">Detalhes do pagamento:</p>
+        <p style="color: #666;">Detalhes:</p>
         <ul>
-            <li style="color: #666;">Data e Hora: [[DATA_HORA]]</li>
-            <li style="color: #666;">Valor Pago: [[VALOR_PAGO]]</li>
-            <li style="color: #666;">Local: [[LOCAL]]</li>
+            <li style="color: #666;">Data e Hora do Estacionamento: [$data_hora_inicio]</li>
+			<br>
+            <li style="color: #666;">Informações do Local:</li>
+			<li style="color: #666;">Logradouro: [$logradouro]</li>
+			<li style="color: #666;">Bairro: [$bairro]</li>
+			<li style="color: #666;">CEP: [$cep]</li>
+			<li style="color: #666;">Intervalo de número: [$intervalo_de_numero]</li>
+			<br>
+			<li style="color: #666;">Informações do Veículo:</li>
+			<li style="color: #666;">Marca: [$marca]</li>
+			<li style="color: #666;">Modelo: [$modelo]</li>
+			<li style="color: #666;">Placa: [$placa]</li>
         </ul>
-
-        <p style="color: #666;">Lembre-se de que seu voucher de parquímetro expirará em breve. Não se esqueça de
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">Qtde Horas</th>
+    <th class="tg-0lax">Forma de Pagamento</th>
+  </tr>
+</thead>
+[$conteudo_voucher]
+</table>
+        <p style="color: #666;">Lembre-se de que seu estacionamento expirará [$data_hora_fim_estacionamento]. Não se esqueça de
             renová-lo para evitar multas.</p>
 
         <p style="color: #666;">Atenciosamente,</p>
-        <p style="color: #666;">Seu Nome</p>
+        <p style="color: #666;">Estacionamento Tech</p>
     </div>
 </div>
 </body>

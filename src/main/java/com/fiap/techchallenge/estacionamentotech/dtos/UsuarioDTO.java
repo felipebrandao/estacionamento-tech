@@ -5,15 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuarioEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
 public class UsuarioDTO {
 

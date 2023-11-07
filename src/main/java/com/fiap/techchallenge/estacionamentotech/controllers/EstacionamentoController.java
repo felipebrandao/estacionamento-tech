@@ -55,9 +55,9 @@ public class EstacionamentoController {
     }
 
     @PostMapping("/estender-horas/{idVeiculoEstacionado}")
-    public ResponseEntity<VeiculoEstacionadoDTO> adicionarMaisHorasDeEstacionamento(@PathVariable Long idVeiculoEstacionado, @RequestParam VoucherEstacionamentoDTO voucherEstacionamentoDTO) {
-        VeiculoEstacionadoDTO veiculoEstacionado = estacionamentoService.adicionarHorasDeEstacionamento(idVeiculoEstacionado, voucherEstacionamentoDTO);
-        return new ResponseEntity<>(veiculoEstacionado, OK);
+    public ResponseEntity<VoucherEstacionamentoDTO> adicionarMaisHorasDeEstacionamento(@PathVariable Long idVeiculoEstacionado, @RequestParam VoucherEstacionamentoDTO voucherEstacionamentoDTO) {
+        VoucherEstacionamentoDTO voucherEstacionamento = estacionamentoService.adicionarHorasDeEstacionamento(idVeiculoEstacionado, voucherEstacionamentoDTO);
+        return new ResponseEntity<>(voucherEstacionamento, OK);
     }
 
 }

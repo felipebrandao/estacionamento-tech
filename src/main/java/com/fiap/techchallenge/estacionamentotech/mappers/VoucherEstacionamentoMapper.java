@@ -5,6 +5,8 @@ import com.fiap.techchallenge.estacionamentotech.entities.VoucherEstacionamento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface VoucherEstacionamentoMapper {
 
@@ -16,4 +18,5 @@ public interface VoucherEstacionamentoMapper {
     @Mapping(target = "dataHoraRegistro", ignore = true)
     VoucherEstacionamento toEntity(VoucherEstacionamentoDTO voucherEstacionamentoDTO);
 
+    List<VoucherEstacionamentoDTO> toDTOList(List<VoucherEstacionamento> voucherEstacionamentoList);
 }

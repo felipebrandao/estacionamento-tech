@@ -1,8 +1,8 @@
 package com.fiap.techchallenge.estacionamentotech.services;
 
-import com.fiap.techchallenge.estacionamentotech.dtos.VeiculoEstacionadoDTO;
+import com.fiap.techchallenge.estacionamentotech.dtos.EmailEstacionamentoDTO;
 import jakarta.mail.MessagingException;
 
 public interface EmailService {
-    void enviarNotificacaoDeVeiculoEstacionadoEComprovanteDePagamento(VeiculoEstacionadoDTO registroVeiculoEstacionadoDTO) throws MessagingException;
+    void enviarNotificacaoDeVeiculoEstacionadoEComprovanteDePagamento(EmailEstacionamentoDTO emailEstacionamentoDTO) throws MessagingException;
 }

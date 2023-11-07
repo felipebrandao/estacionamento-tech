@@ -2,15 +2,13 @@ package com.fiap.techchallenge.estacionamentotech.entities;
 
 import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuarioEnum;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "usuario")
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Usuario {
 
     @Id

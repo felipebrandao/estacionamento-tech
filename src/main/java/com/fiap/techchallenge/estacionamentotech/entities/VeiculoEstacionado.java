@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "veiculoEstacionado")
@@ -43,6 +45,9 @@ public class VeiculoEstacionado {
 
     @Column(name = "status")
     private boolean status;
+
+    @OneToMany(mappedBy = "veiculoEstacionado")
+    private List<VoucherEstacionamento> voucherEstacionamentoList = new ArrayList<>();
 
     public VeiculoEstacionado(Long id, Long idUsuario, Long idVeiculo, Long idLocalEstacionamento, LocalDateTime dataHoraInicio, boolean status) {
         this.id = id;

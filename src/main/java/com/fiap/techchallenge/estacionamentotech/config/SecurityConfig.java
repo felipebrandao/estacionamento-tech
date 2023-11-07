@@ -58,6 +58,9 @@ public class SecurityConfig {
 
                         .requestMatchers("/multa").hasAuthority("FISCAL")
                         .requestMatchers("/estacionamento/locais").hasAuthority("FISCAL")
+
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
+
                         .anyRequest().authenticated());
 
 

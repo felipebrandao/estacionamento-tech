@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 @Order(HIGHEST_PRECEDENCE)
