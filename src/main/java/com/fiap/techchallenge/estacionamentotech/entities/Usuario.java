@@ -16,8 +16,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
 @Table(name = "usuario")
-@Data
 @Entity
+@Data
 public class Usuario {
 
     @Id

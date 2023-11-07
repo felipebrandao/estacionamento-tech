@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-@Entity
 @Table(name = "veiculo")
 @NoArgsConstructor
+@Entity
 @Data
 public class Veiculo {
 
