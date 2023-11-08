@@ -1,5 +1,6 @@
 package com.fiap.techchallenge.estacionamentotech.dtos;
 
+import com.fiap.techchallenge.estacionamentotech.enums.TipoEmailEnum;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,8 @@ public class EmailEstacionamentoDTO {
     private LocalDateTime dataHoraFimEstacionamento;
 
     private List<VoucherEstacionamentoDTO> voucherEstacionamentoDTOList = new ArrayList<>();
+
+    private TipoEmailEnum tipoEmail;
 
     public EmailEstacionamentoDTO() {
     }

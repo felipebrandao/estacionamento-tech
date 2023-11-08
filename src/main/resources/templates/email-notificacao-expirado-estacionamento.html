@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Recibo de Pagamento e Notificação</title>
+    <title>Notificação de expirado do Estacionamento Tech</title>
 </head>
 <body>
 <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
     <div style="background-color: #ffffff; max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
 
-        <h2 style="color: #333;">Recibo de Pagamento do Estacionamento Tech</h2>
+        <h2 style="color: #333;">Notificação de expirado do Estacionamento Tech</h2>
 
         <p style="color: #666;">Olá, [$nome_usuario],</p>
 
-        <p style="color: #666;">Este é o recibo de estacionamento.</p>
+        <p style="color: #666;">Esta é a notificação de estacionamento expirado - [$data_hora_fim_estacionamento].</p>
 
         <p style="color: #666;">Detalhes:</p>
         <ul>
@@ -44,11 +44,10 @@
     <th class="tg-0lax">Forma de Pagamento</th>
   </tr>
 </thead>
-[$conteudo_voucher]
+    <tbody>
+        [$conteudo_voucher]
+    </tbody>
 </table>
-        <p style="color: #666;">Lembre-se de que seu estacionamento expirará [$data_hora_fim_estacionamento]. Não se esqueça de
-            renová-lo para evitar multas.</p>
-
         <p style="color: #666;">Atenciosamente,</p>
         <p style="color: #666;">Estacionamento Tech</p>
     </div>

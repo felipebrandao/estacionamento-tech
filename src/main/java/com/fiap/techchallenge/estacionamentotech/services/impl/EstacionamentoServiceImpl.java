@@ -8,6 +8,7 @@ import com.fiap.techchallenge.estacionamentotech.entities.LocalEstacionamento;
 import com.fiap.techchallenge.estacionamentotech.entities.Usuario;
 import com.fiap.techchallenge.estacionamentotech.entities.VeiculoEstacionado;
 import com.fiap.techchallenge.estacionamentotech.entities.VoucherEstacionamento;
+import com.fiap.techchallenge.estacionamentotech.enums.TipoEmailEnum;
 import com.fiap.techchallenge.estacionamentotech.mappers.LocalEstacionamentoMapper;
 import com.fiap.techchallenge.estacionamentotech.mappers.VeiculoEstacionadoMapper;
 import com.fiap.techchallenge.estacionamentotech.mappers.VoucherEstacionamentoMapper;
@@ -94,15 +95,16 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
             registroVeiculoEstacionadoDTO = veiculoEstacionadoMapper.toDTO(veiculoEstacionado);
             registroVeiculoEstacionadoDTO.getVoucherEstacionamento().add(voucherEstacionamentoDTO);
 
-            envioDeEmailEstacionamento(veiculoEstacionado.getId(), "Registro de Estacionamento");
+            envioDeEmailEstacionamento(veiculoEstacionado.getId(), "Estacionamento Tech - Registro de Estacionamento", TipoEmailEnum.REGISTRO);
         }
 
         return registroVeiculoEstacionadoDTO;
     }
 
-    private void envioDeEmailEstacionamento(Long veiculoEstacionado, String assunto) {
+    private void envioDeEmailEstacionamento(Long veiculoEstacionado, String assunto, TipoEmailEnum tipoEmail) {
         EmailEstacionamentoDTO emailEstacionamento = veiculoEstacionadoRepository.findVeiculoEstacionadoByID(veiculoEstacionado);
         emailEstacionamento.setAssunto(assunto);
+        emailEstacionamento.setTipoEmail(tipoEmail);
 
         List<VoucherEstacionamento> voucherEstacionamentoList = voucherEstacionamentoRepository.findByIdVeiculoEstacionado(veiculoEstacionado);
 
@@ -138,7 +140,8 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
         VoucherEstacionamentoDTO voucherEstacionamento = registrarVoucher(voucherEstacionamentoDTO, idVeiculoEstacionado);
 
-        envioDeEmailEstacionamento(idVeiculoEstacionado, "Registro de Estacionamento - Adicionado horas");
+        envioDeEmailEstacionamento(idVeiculoEstacionado, "Estacionamento Tech - Adicionado horas", TipoEmailEnum.REGISTRO);
+
 
         return voucherEstacionamento;
     }
@@ -152,7 +155,9 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
         List<VeiculoEstacionado> estacionamentosPertoDoFim = veiculoEstacionadoRepository.getEstacionamentosPertoDoFim(dataHoraAtual, dataHoraExpiracao);
 
         for (VeiculoEstacionado estacionado : estacionamentosPertoDoFim) {
-            //enviarNotificacaoEstacionamentoPertoDoFim(estacionado);
+            envioDeEmailEstacionamento(estacionado.getIdVeiculo(), "Estacionamento Tech - Aviso de Expiração", TipoEmailEnum.EXPIRACAO);
+            estacionado.setNotificacaoEnviada(true);
+            veiculoEstacionadoRepository.save(estacionado);
         }
     }
 
@@ -163,7 +168,9 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
         List<VeiculoEstacionado> estacionamentosExpirado = veiculoEstacionadoRepository.getEstacionamentosExpirado(dataHoraExpirado);
 
         for (VeiculoEstacionado estacionado : estacionamentosExpirado) {
-            //enviarNotificacaoEstacionamentoPertoDoFim(estacionado);
+            envioDeEmailEstacionamento(estacionado.getIdVeiculo(), "Estacionamento Tech - Expirado", TipoEmailEnum.EXPIRADO);
+            estacionado.setStatus(false);
+            veiculoEstacionadoRepository.save(estacionado);
         }
     }
 }

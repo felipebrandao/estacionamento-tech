@@ -2,6 +2,7 @@ package com.fiap.techchallenge.estacionamentotech.services.impl;
 
 import com.fiap.techchallenge.estacionamentotech.dtos.EmailEstacionamentoDTO;
 import com.fiap.techchallenge.estacionamentotech.dtos.VoucherEstacionamentoDTO;
+import com.fiap.techchallenge.estacionamentotech.enums.TipoEmailEnum;
 import com.fiap.techchallenge.estacionamentotech.services.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -29,9 +30,9 @@ public class EmailServiceImpl implements EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    private String carregarConteudoHtml() throws IOException {
+    private String carregarConteudoHtml(TipoEmailEnum tipoEmail) throws IOException {
         try {
-            Resource resource = resourceLoader.getResource("classpath:" + "/templates/email-template.html");
+            Resource resource = resourceLoader.getResource("classpath:" + tipoEmail.getCaminho());
             byte[] byteArray = FileCopyUtils.copyToByteArray(resource.getInputStream());
             return new String(byteArray, StandardCharsets.UTF_8);
         } catch (IOException e) {
@@ -43,7 +44,7 @@ public class EmailServiceImpl implements EmailService {
 
         String conteudoHtml;
         try {
-            conteudoHtml = carregarConteudoHtml();
+            conteudoHtml = carregarConteudoHtml(emailEstacionamentoDTO.getTipoEmail());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
