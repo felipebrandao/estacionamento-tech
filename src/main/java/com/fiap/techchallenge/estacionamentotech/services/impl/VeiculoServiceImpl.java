@@ -48,12 +48,6 @@ public class VeiculoServiceImpl implements VeiculoService {
                 .orElseThrow(() -> new RuntimeException("Veiculo com ID " + id + " não encontrada."));
         return veiculoMapper.toDTO(veiculo);
     }
-
-    @Override
-    public VeiculoDTO atualizarVeiculo(Long id, VeiculoDTO veiculo, Usuario usuario) {
-        return null;
-    }
-
     @Override
     public void excluirVeiculo(Long id, Usuario usuario) {
         Veiculo veiculo = veiculoRepository.findByIdAndIdUsuario(id, usuario.getIdUsuario())

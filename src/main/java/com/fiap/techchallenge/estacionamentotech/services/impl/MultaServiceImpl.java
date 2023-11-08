@@ -49,5 +49,4 @@ public class MultaServiceImpl implements MultaService {
 
         return multaMapper.toDTO(multa);
     }
-
 }
