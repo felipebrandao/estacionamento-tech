@@ -8,10 +8,14 @@
 | **🚀 Framework**             | Spring Boot, Spring Data JPA |
 | **🧩 Mapeamento de Objetos** | MapStruct                    |
 | **💾 Banco de Dados**        | H2 (em memória)              |
-| **📧 SendGrid**              | Integração de E-mail         | 
+| **📧 JavaEmail**             | Integração de E-mail         | 
 | **☕ Linguagem**              | Java 17                      |
 | **🔗 Controle de Versão**    | Git (GitHub)                 |
 | **📋 Teste de API**          | Postman                      |
+| **🔐 Segurança**             | Spring Security, JWT         |
+| **🪶 Lombok**                | Biblioteca de Anotações      |
+| **📜 OpenAPI**               | Documentação de API          |
+| **📊 Logging**               | Log4j, SLF4J                 |
 
 ## Desafios Encontrados:
 
