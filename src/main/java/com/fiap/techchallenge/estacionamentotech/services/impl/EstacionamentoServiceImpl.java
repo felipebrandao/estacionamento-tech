@@ -84,7 +84,8 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
             VeiculoEstacionado veiculoEstacionado = veiculoEstacionadoMapper.toEntity(veiculoEstacionadoDTO);
             veiculoEstacionado.setIdUsuario(usuario.getIdUsuario());
-            veiculoEstacionado.setStatus(true);
+            LocalDateTime dataHoraExpira = veiculoEstacionado.getDataHoraInicio().plusHours(veiculoEstacionadoDTO.getVoucherEstacionamento().get(0).getQtdeDeHorasEstacionado());
+            veiculoEstacionado.setDataHoraExpira(dataHoraExpira);
 
             veiculoEstacionado = veiculoEstacionadoRepository.save(veiculoEstacionado);
 
@@ -109,15 +110,6 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
         emailEstacionamento.getVoucherEstacionamentoDTOList().addAll(voucherEstacionamentoDTOList);
 
-        long somaDeHoras = voucherEstacionamentoDTOList.stream()
-                .mapToLong(VoucherEstacionamentoDTO::getHorasEstacionado)
-                .sum();
-
-        LocalDateTime dataHoraFimEstacionamento = emailEstacionamento.getDataHoraInicioEstacionamento()
-                                                                     .plusHours(somaDeHoras);
-
-        emailEstacionamento.setDataHoraFimEstacionamento(dataHoraFimEstacionamento);
-
         try {
             emailService.enviarNotificacaoDeVeiculoEstacionadoEComprovanteDePagamento(emailEstacionamento);
         } catch (MessagingException e) {
@@ -137,11 +129,41 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
     @Override
     public VoucherEstacionamentoDTO adicionarHorasDeEstacionamento(Long idVeiculoEstacionado, VoucherEstacionamentoDTO voucherEstacionamentoDTO) {
+        VeiculoEstacionado veiculoEstacionado = veiculoEstacionadoRepository.findById(idVeiculoEstacionado).orElseThrow();
+
+        LocalDateTime dataHoraExpira = veiculoEstacionado.getDataHoraExpira().plusHours(voucherEstacionamentoDTO.getQtdeDeHorasEstacionado());
+        veiculoEstacionado.setDataHoraExpira(dataHoraExpira);
+
+        veiculoEstacionado = veiculoEstacionadoRepository.save(veiculoEstacionado);
 
         VoucherEstacionamentoDTO voucherEstacionamento = registrarVoucher(voucherEstacionamentoDTO, idVeiculoEstacionado);
 
         envioDeEmailEstacionamento(idVeiculoEstacionado, "Registro de Estacionamento - Adicionado horas");
 
         return voucherEstacionamento;
+    }
+
+    @Override
+    public void enviarNotificacoesEstacionamentoEstaPertoDoFim() {
+
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        LocalDateTime dataHoraExpiracao = dataHoraAtual.plusMinutes(10);
+
+        List<VeiculoEstacionado> estacionamentosPertoDoFim = veiculoEstacionadoRepository.getEstacionamentosPertoDoFim(dataHoraAtual, dataHoraExpiracao);
+
+        for (VeiculoEstacionado estacionado : estacionamentosPertoDoFim) {
+            //enviarNotificacaoEstacionamentoPertoDoFim(estacionado);
+        }
+    }
+
+    @Override
+    public void estacionamentoExpirado() {
+        LocalDateTime dataHoraExpirado = LocalDateTime.now().plusMinutes(10);
+
+        List<VeiculoEstacionado> estacionamentosExpirado = veiculoEstacionadoRepository.getEstacionamentosExpirado(dataHoraExpirado);
+
+        for (VeiculoEstacionado estacionado : estacionamentosExpirado) {
+            //enviarNotificacaoEstacionamentoPertoDoFim(estacionado);
+        }
     }
 }

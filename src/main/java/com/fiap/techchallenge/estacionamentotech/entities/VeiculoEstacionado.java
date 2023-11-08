@@ -55,17 +55,25 @@ public class VeiculoEstacionado {
     private LocalDateTime dataHoraInicio;
 
     @Column(name = "status")
-    private boolean status;
+    private boolean status = true;
 
     @OneToMany(mappedBy = "veiculoEstacionado")
     private List<VoucherEstacionamento> voucherEstacionamentoList = new ArrayList<>();
 
-    public VeiculoEstacionado(Long id, Long idUsuario, Long idVeiculo, Long idLocalEstacionamento, LocalDateTime dataHoraInicio, boolean status) {
+    @Column(name = "data_hora_expira")
+    private LocalDateTime dataHoraExpira;
+
+    @Column(name = "notificacao_enviada")
+    private boolean notificacaoEnviada = false;
+
+    public VeiculoEstacionado(Long id, Long idUsuario, Long idVeiculo, Long idLocalEstacionamento, LocalDateTime dataHoraInicio, boolean status, LocalDateTime dataHoraExpira, boolean notificacaoEnviada) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idVeiculo = idVeiculo;
         this.idLocalEstacionamento = idLocalEstacionamento;
         this.dataHoraInicio = dataHoraInicio;
         this.status = status;
+        this.dataHoraExpira = dataHoraExpira;
+        this.notificacaoEnviada = notificacaoEnviada;
     }
 }

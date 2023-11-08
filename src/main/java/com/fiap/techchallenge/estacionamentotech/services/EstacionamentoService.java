@@ -15,4 +15,8 @@ public interface EstacionamentoService {
     VeiculoEstacionadoDTO registrarEstacionamento(VeiculoEstacionadoDTO veiculoEstacionadoDTO, Usuario usuario);
 
     VoucherEstacionamentoDTO adicionarHorasDeEstacionamento(Long idVeiculoEstacionado, VoucherEstacionamentoDTO voucherEstacionamentoDTO);
+
+    void enviarNotificacoesEstacionamentoEstaPertoDoFim();
+
+    void estacionamentoExpirado();
 }

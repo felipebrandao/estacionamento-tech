@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface VeiculoEstacionadoRepository extends JpaRepository<VeiculoEstacionado, Long> {
@@ -25,11 +27,25 @@ public interface VeiculoEstacionadoRepository extends JpaRepository<VeiculoEstac
             " le.intervaloDeNumero," +
             " v.marca," +
             " v.modelo," +
-            " v.placa) " +
+            " v.placa," +
+            " vei.dataHoraExpira) " +
             "FROM VeiculoEstacionado vei " +
             "LEFT JOIN vei.usuario u " +
             "LEFT JOIN vei.veiculo v " +
             "LEFT JOIN vei.localEstacionamento le " +
             "WHERE vei.id = :id")
     EmailEstacionamentoDTO findVeiculoEstacionadoByID(@Param("id") Long id);
+
+
+    @Query("SELECT DISTINCT ve " +
+            "FROM VeiculoEstacionado ve " +
+            "WHERE ve.status = true and ve.notificacaoEnviada = false" +
+            " (ve.dataHoraExpira >= :dataHoraAtual " +
+                    "AND ve.dataHoraExpira <= :dataHoraExpiracao)")
+    List<VeiculoEstacionado> getEstacionamentosPertoDoFim(@Param("dataHoraAtual") LocalDateTime dataHoraAtual, @Param("dataHoraExpiracao") LocalDateTime dataHoraExpiracao);
+
+    @Query("SELECT DISTINCT ve " +
+            "FROM VeiculoEstacionado ve " +
+            "WHERE ve.status = true AND ve.dataHoraExpira <= :dataHoraExpiracao")
+    List<VeiculoEstacionado> getEstacionamentosExpirado(LocalDateTime dataHoraExpirado);
 }

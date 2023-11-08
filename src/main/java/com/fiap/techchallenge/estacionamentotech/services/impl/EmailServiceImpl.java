@@ -88,7 +88,7 @@ public class EmailServiceImpl implements EmailService {
 
         for (VoucherEstacionamentoDTO voucherEstacionamentoDTO : emailEstacionamentoDTO.getVoucherEstacionamentoDTOList()) {
             String linhaHTML = "<tr>" +
-                    "<td class=\"tg-0lax\">" + voucherEstacionamentoDTO.getHorasEstacionado() + "</td>" +
+                    "<td class=\"tg-0lax\">" + voucherEstacionamentoDTO.getQtdeDeHorasEstacionado() + "</td>" +
                     "<td class=\"tg-0lax\">" + voucherEstacionamentoDTO.getFormaDePagamento() + "</td>" +
                     "</tr>";
 

@@ -43,7 +43,7 @@ public class VoucherEstacionamento {
     @Column(name = "qtde_de_horas_estacionado")
     private Long qtdeDeHorasEstacionado;
 
-    @Column(name = "formaDePagamento")
+    @Column(name = "forma_de_pagamento")
     @Enumerated(STRING)
     private FormaDePagamentoEnum formaDePagamento;
 

@@ -39,7 +39,8 @@ public class EmailEstacionamentoDTO {
                                   String intervaloDeNumero,
                                   String marca,
                                   String modelo,
-                                  String placa) {
+                                  String placa,
+                                  LocalDateTime dataHoraFimEstacionamento) {
         this.nomeDoUsuario = nomeDoUsuario;
         this.email = email;
         this.dataHoraInicioEstacionamento = dataHoraInicioEstacionamento;
@@ -50,5 +51,6 @@ public class EmailEstacionamentoDTO {
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
+        this.dataHoraFimEstacionamento = dataHoraFimEstacionamento;
     }
 }

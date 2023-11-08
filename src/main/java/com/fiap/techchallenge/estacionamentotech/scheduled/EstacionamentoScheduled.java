@@ -1,22 +1,28 @@
 package com.fiap.techchallenge.estacionamentotech.scheduled;
 
+import com.fiap.techchallenge.estacionamentotech.services.EstacionamentoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EstacionamentoScheduled {
+
+    private final EstacionamentoService estacionamentoService;
+
+    @Autowired
+    public EstacionamentoScheduled(EstacionamentoService estacionamentoService) {
+        this.estacionamentoService = estacionamentoService;
+    }
 
     @Scheduled(cron = "0 */5 * * * *")
     public void enviarNotificacoesEstacionamentoEstaPertoDoFim() {
-        // Implemente a lógica para buscar e enviar notificações de estacionamento perto do fim.
-        // Você pode usar o banco de dados para consultar estacionamentos próximos do vencimento.
-        // Envie notificações aos usuários conforme necessário.
+        estacionamentoService.enviarNotificacoesEstacionamentoEstaPertoDoFim();
     }
 
-    @Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0 */10 * * * *")
     public void verificarEstacionamentoExpirado() {
-        // Implemente a lógica para buscar e enviar notificações de estacionamentos expirados.
-        // Você pode usar o banco de dados para consultar estacionamentos expirados.
-        // Envie notificações aos usuários conforme necessário.
+        estacionamentoService.estacionamentoExpirado();
     }
-
 
 }
