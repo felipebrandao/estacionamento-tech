@@ -15,13 +15,12 @@
 
 ## Desafios Encontrados:
 
-Enfrentamos desafios significativos ao selecionar as melhores tecnologias para o projeto. Durante nossa busca por
-ferramentas de integração de e-mail, encontramos várias opções pagas. No entanto, optamos por utilizar o SendGrid devido
-à sua versatilidade e capacidade de atender às nossas necessidades. O SendGrid oferece uma opção gratuita que nos
-permite enviar até 100 e-mails por dia, tornando-o uma escolha acessível e eficaz para a comunicação por e-mail em nosso
-projeto.
+Enfrentamos desafios significativos ao escolher as melhores tecnologias para o projeto. Durante nossa pesquisa por
+ferramentas de integração de e-mail, nos deparamos com várias opções pagas. Inicialmente, optamos por usar o SendGrid,
+no entanto, ao aprofundar nossa pesquisa, descobrimos a biblioteca JavaMail, que não possui limitações quanto ao número
+de e-mails enviados, oferece uma implementação mais simples e é gratuita.
 
 ## Documentação da API:
 
-A documentação está acessível no link a
-seguir: [Link da Documentação](https://app.swaggerhub.com/apis/JONATASSP/estacionamento-tech/1.0.0#/)
+A documentação do swagger está acessível no link a
+seguir: [Link da Documentação](http://localhost:8080/swagger-ui/index.html/)
