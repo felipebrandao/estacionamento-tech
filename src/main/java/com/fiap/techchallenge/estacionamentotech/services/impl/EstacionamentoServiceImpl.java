@@ -152,7 +152,7 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         LocalDateTime dataHoraExpiracao = dataHoraAtual.plusMinutes(10);
 
-        List<VeiculoEstacionado> estacionamentosPertoDoFim = veiculoEstacionadoRepository.getEstacionamentosPertoDoFim(dataHoraAtual, dataHoraExpiracao);
+        List<VeiculoEstacionado> estacionamentosPertoDoFim = veiculoEstacionadoRepository.getEstacionamentosPertoDoFim(dataHoraExpiracao);
 
         for (VeiculoEstacionado estacionado : estacionamentosPertoDoFim) {
             envioDeEmailEstacionamento(estacionado.getIdVeiculo(), "Estacionamento Tech - Aviso de Expiração", TipoEmailEnum.EXPIRACAO);
