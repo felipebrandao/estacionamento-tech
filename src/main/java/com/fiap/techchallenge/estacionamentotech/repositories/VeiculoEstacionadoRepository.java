@@ -39,13 +39,14 @@ public interface VeiculoEstacionadoRepository extends JpaRepository<VeiculoEstac
 
     @Query("SELECT DISTINCT ve " +
             "FROM VeiculoEstacionado ve " +
-            "WHERE ve.status = true and ve.notificacaoEnviada = false" +
-            " (ve.dataHoraExpira >= :dataHoraAtual " +
-                    "AND ve.dataHoraExpira <= :dataHoraExpiracao)")
+            "WHERE ve.status = true " +
+            "AND ve.notificacaoEnviada = false " +
+            "AND ve.dataHoraExpira <= :dataHoraExpiracao")
     List<VeiculoEstacionado> getEstacionamentosPertoDoFim(@Param("dataHoraAtual") LocalDateTime dataHoraAtual, @Param("dataHoraExpiracao") LocalDateTime dataHoraExpiracao);
 
     @Query("SELECT DISTINCT ve " +
             "FROM VeiculoEstacionado ve " +
-            "WHERE ve.status = true AND ve.dataHoraExpira <= :dataHoraExpiracao")
-    List<VeiculoEstacionado> getEstacionamentosExpirado(LocalDateTime dataHoraExpirado);
+            "WHERE ve.status = true " +
+            "AND ve.dataHoraExpira <= :dataHoraExpirado")
+    List<VeiculoEstacionado> getEstacionamentosExpirado(@Param("dataHoraExpirado") LocalDateTime dataHoraExpirado);
 }
