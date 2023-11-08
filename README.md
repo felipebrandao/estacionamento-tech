@@ -28,3 +28,4 @@ de e-mails enviados, oferece uma implementação mais simples e é gratuita.
 
 A documentação do swagger está acessível no link a
 seguir: [Link da Documentação](http://localhost:8080/swagger-ui/index.html/)
+
