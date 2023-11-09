@@ -151,7 +151,7 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
         LocalDateTime dataHoraAtualMenos10min = LocalDateTime.now().minusMinutes(10);
         LocalDateTime dataHoraAtual = LocalDateTime.now();
-
+        
         List<VeiculoEstacionado> estacionamentosPertoDoFim = veiculoEstacionadoRepository.getEstacionamentosPertoDoFim(dataHoraAtualMenos10min, dataHoraAtual);
 
         for (VeiculoEstacionado estacionado : estacionamentosPertoDoFim) {
