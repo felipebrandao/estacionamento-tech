@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,14 +44,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/usuario/cadastro/**").permitAll()
+                        .requestMatchers("/enviar-email").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         .requestMatchers("/veiculo").hasAuthority("COMUM")
+                        .requestMatchers("/estacionamento/estacionar").hasAuthority("COMUM")
+                        .requestMatchers("/estacionamento/estender-horas/**").hasAuthority("COMUM")
+                        .requestMatchers("/estacionamento/locais/listar").hasAuthority("COMUM")
+
                         .requestMatchers("/multa").hasAuthority("FISCAL")
+                        .requestMatchers("/estacionamento/locais").hasAuthority("FISCAL")
+
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
+
                         .anyRequest().authenticated());
 
 

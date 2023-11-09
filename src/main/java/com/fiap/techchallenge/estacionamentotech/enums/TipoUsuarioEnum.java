@@ -1,13 +1,13 @@
 package com.fiap.techchallenge.estacionamentotech.enums;
 
-public enum TipoUsuario {
+public enum TipoUsuarioEnum {
 
-    COMUM("C"),
-    FISCAL("F");
+    COMUM("Comum"),
+    FISCAL("Fiscal");
 
     private String tipoUsuario;
 
-    TipoUsuario(String tipoUsuario) {
+    TipoUsuarioEnum(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 

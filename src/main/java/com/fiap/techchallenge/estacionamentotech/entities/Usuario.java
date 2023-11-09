@@ -1,21 +1,22 @@
 package com.fiap.techchallenge.estacionamentotech.entities;
 
-import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuario;
+import com.fiap.techchallenge.estacionamentotech.enums.TipoUsuarioEnum;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Table(name = "usuario")
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @NoArgsConstructor
-@Getter
-@Setter
+@Table(name = "usuario")
+@Entity
+@Data
 public class Usuario {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long idUsuario;
 
     @Column(name = "nome")
@@ -28,17 +29,17 @@ public class Usuario {
     private String cpf;
 
     @Column(name = "tipoUsuario")
-    @Enumerated(EnumType.STRING)
-    private TipoUsuario tipoUsuario;
+    @Enumerated(STRING)
+    private TipoUsuarioEnum tipoUsuarioEnum;
 
     @Column(name = "senha")
     private String senha;
 
-    public Usuario(String nome, String email, String cpf, TipoUsuario tipoUsuario, String senha) {
+    public Usuario(String nome, String email, String cpf, TipoUsuarioEnum tipoUsuarioEnum, String senha) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
-        this.tipoUsuario = tipoUsuario;
+        this.tipoUsuarioEnum = tipoUsuarioEnum;
         this.senha = senha;
     }
 }

@@ -1,16 +1,12 @@
-package com.fiap.techchallenge.estacionamentotech.dtos;
+package com.fiap.techchallenge.estacionamentotech.dtos.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class AuthResponse {
-
     private String token;
 
     public AuthResponse(String token) {
         this.token = token;
     }
-
 }
