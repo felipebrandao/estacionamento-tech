@@ -1,0 +1,438 @@
+{
+	"info": {
+		"_postman_id": "bfdc6440-b5ae-45d9-b90f-8066cc51024c",
+		"name": "Estacionamento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3063841"
+	},
+	"item": [
+		{
+			"name": "Cadastro Comum",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Jennifer Josefa Nascimento\",\r\n    \"email\": \"xpto@xpto.com\",\r\n    \"cpf\": \"33275356984\",\r\n    \"senha\": \"senha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario/cadastro/comum",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"cadastro",
+						"comum"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro Fiscal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Jennifer Josefa Nascimento\",\r\n    \"email\": \"xpto@xpto.com\",\r\n    \"cpf\": \"33275356984\",\r\n    \"senha\": \"senha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario/cadastro/fiscal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"cadastro",
+						"fiscal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"xpto@xpto.com\",\r\n    \"password\":\"senha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Multa",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4cHRvQHhwdG8uY29tIiwiaWF0IjoxNjk5MTQ1MTY4LCJleHAiOjE2OTkxNDg3Njh9.1S4TjQeOuDtmEUZm4dcIOCJNatmzvgqEjPItjhQJDws",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/multa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"multa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Veiculo - Cadastro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4cHRvQHhwdG8uY29tIiwiaWF0IjoxNjk5MTQ4MjQwLCJleHAiOjE2OTkxNTE4NDB9.3xuLL2ro8DPrGPOS3Yli4WwCq0ikgrj60kuUUOc7v3g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"marca\": \"HYUNDAI\",\r\n        \"modelo\": \"IX35\",\r\n        \"placa\": \"XPTO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/veiculo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"veiculo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Veiculo - Busca por ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4cHRvQHhwdG8uY29tIiwiaWF0IjoxNjk5MTQ2OTk0LCJleHAiOjE2OTkxNTA1OTR9.1n7tjbfUmpSGR3onmcaw85hpwcjoN9SJ0tNuMqt48_4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/veiculo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"veiculo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Veiculo - Busca por Lista",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4cHRvQHhwdG8uY29tIiwiaWF0IjoxNjk5MTQ4MjQwLCJleHAiOjE2OTkxNTE4NDB9.3xuLL2ro8DPrGPOS3Yli4WwCq0ikgrj60kuUUOc7v3g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/veiculo/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"veiculo",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Veiculo - Delete por ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4cHRvQHhwdG8uY29tIiwiaWF0IjoxNjk5MTQ4MjQwLCJleHAiOjE2OTkxNTE4NDB9.3xuLL2ro8DPrGPOS3Yli4WwCq0ikgrj60kuUUOc7v3g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/veiculo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"veiculo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local Estacionamento - Cadastro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYXRoYW5AZmlzY2FsLmNvbSIsImlhdCI6MTY5OTIxNzc0MywiZXhwIjoxNjk5MjIxMzQzfQ.sjphA2aq4Ul9UgQfhgSEibJteegMAZ1ubAC9NBP-Udw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"logradouro\": \"Avenida Paulista\",\r\n    \"bairro\": \"Bela Vista\",\r\n    \"cep\": \"01310-000\",\r\n    \"intervaloDeNumero\": \"1000 a 1500\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estacionamento/locais",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estacionamento",
+						"locais"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local Estacionamento - Listar",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZW5uaWZlckBjb211bS5jb20iLCJpYXQiOjE2OTkyMTc4MzUsImV4cCI6MTY5OTIyMTQzNX0._dFFqDPgplaxjrLGQHKemKGwMj-SeRfZUa8FGSEcEKQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estacionamento/locais/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estacionamento",
+						"locais",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local Estacionamento - Listar Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZW5uaWZlckBjb211bS5jb20iLCJpYXQiOjE2OTkyMTgyMjMsImV4cCI6MTY5OTIyMTgyM30.TOdMJEKS4MiT9c6EHE3dBAVLDzAqUS5pF4fsKefaTuE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"veiculoId\": 1,\r\n    \"localEstacionamentoId\": 1,\r\n    \"dataHoraInicio\": \"2023-11-05T18:00:00\",\r\n    \"voucherEstacionamento\" : [\r\n        \"qtdeDeHorasEstacionado\": 1,\r\n        \"formaDePagamento\": \"CARTAO_CREDITO\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estacionamento/estacionar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estacionamento",
+						"estacionar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Envio email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to\": \"sribeiro.thalita@gmail.com\",\r\n    \"subject\": \"Assunto do E-mail\",\r\n    \"text\": \"Texto do E-mail com as tags de substituição [[NOME_DO_CLIENTE]], [[DATA_HORA]], [[VALOR_PAGO]], [[LOCAL]]\",\r\n    \"clienteId\": 123,\r\n    \"nomeDoCliente\": \"teste estacionamento\",\r\n    \"dataHora\": \"2023-11-05 10:00\",\r\n    \"valorPago\": \"50.00\",\r\n    \"local\": \"Local do pagamento\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/enviar-email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"enviar-email"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
