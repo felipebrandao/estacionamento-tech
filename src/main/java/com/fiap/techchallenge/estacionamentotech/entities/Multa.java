@@ -47,7 +47,7 @@ public class Multa {
     @JoinColumn(name = "id_local_estacionamento", referencedColumnName = "id", insertable = false, updatable = false)
     private LocalEstacionamento localEstacionamento;
 
-    @Column(name = "data_hora_inicio")
+    @Column(name = "data_hora_multa")
     private LocalDateTime dataHoraMulta;
 
     public Multa(Long id, Long idUsuario, Long idVeiculo, Long idLocalEstacionamento, LocalDateTime dataHoraMulta) {

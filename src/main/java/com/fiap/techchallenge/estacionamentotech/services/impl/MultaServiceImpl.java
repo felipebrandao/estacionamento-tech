@@ -34,12 +34,12 @@ public class MultaServiceImpl implements MultaService {
     @Override
     public MultaDTO registrarMulta(MultaDTO multaDTO, Usuario usuario) {
 
-        Optional<VeiculoEstacionado> buscaVeiculoEstacionado = veiculoEstacionadoRepository.
+        VeiculoEstacionado buscaVeiculoEstacionado = veiculoEstacionadoRepository.
                 findByIdVeiculoAndIdLocalEstacionamentoAndStatusTrue(multaDTO.getIdVeiculo(),
                                                                      multaDTO.getIdLocalEstacionamento());
 
-        if (buscaVeiculoEstacionado.isEmpty()) {
-            throw new VeiculoException("O veículo não está na rua.");
+        if (buscaVeiculoEstacionado != null) {
+            throw new VeiculoException("O veículo está com estacionamento registrado");
         }
 
         Multa multa = multaMapper.toEntity(multaDTO);

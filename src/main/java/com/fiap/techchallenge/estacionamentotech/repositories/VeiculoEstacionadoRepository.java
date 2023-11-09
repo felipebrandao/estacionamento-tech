@@ -14,8 +14,13 @@ public interface VeiculoEstacionadoRepository extends JpaRepository<VeiculoEstac
 
     Optional<VeiculoEstacionado> findByIdVeiculoAndStatusTrue(Long veiculoId);
 
-    Optional<VeiculoEstacionado> findByIdVeiculoAndIdLocalEstacionamentoAndStatusTrue(Long idVeiculo,
-                                                                                      Long idLocalEstacionamento);
+    @Query("SELECT ve " +
+            "FROM VeiculoEstacionado ve " +
+            "WHERE ve.idVeiculo = :idVeiculo " +
+            "AND ve.idLocalEstacionamento = :idLocalEstacionamento " +
+            "AND ve.status = true")
+    VeiculoEstacionado findByIdVeiculoAndIdLocalEstacionamentoAndStatusTrue(@Param("idVeiculo") Long idVeiculo,
+                                                                            @Param("idLocalEstacionamento") Long idLocalEstacionamento);
 
     @Query("SELECT new com.fiap.techchallenge.estacionamentotech.dtos.EmailEstacionamentoDTO(" +
             " u.nome," +
@@ -41,12 +46,13 @@ public interface VeiculoEstacionadoRepository extends JpaRepository<VeiculoEstac
             "FROM VeiculoEstacionado ve " +
             "WHERE ve.status = true " +
             "AND ve.notificacaoEnviada = false " +
-            "AND ve.dataHoraExpira <= :dataHoraExpiracao")
-    List<VeiculoEstacionado> getEstacionamentosPertoDoFim(@Param("dataHoraAtual") LocalDateTime dataHoraAtual, @Param("dataHoraExpiracao") LocalDateTime dataHoraExpiracao);
+            "AND ve.dataHoraExpira >= :dataHoraAtualMenos10min " +
+            "AND ve.dataHoraExpira <= :dataHoraAtual")
+    List<VeiculoEstacionado> getEstacionamentosPertoDoFim(@Param("dataHoraAtualMenos10min") LocalDateTime dataHoraAtualMenos10min, @Param("dataHoraAtual") LocalDateTime dataHoraAtual);
 
     @Query("SELECT DISTINCT ve " +
             "FROM VeiculoEstacionado ve " +
             "WHERE ve.status = true " +
-            "AND ve.dataHoraExpira <= :dataHoraExpirado")
-    List<VeiculoEstacionado> getEstacionamentosExpirado(@Param("dataHoraExpirado") LocalDateTime dataHoraExpirado);
+            "AND ve.dataHoraExpira >= :dataHoraAtualMais5min")
+    List<VeiculoEstacionado> getEstacionamentosExpirado(@Param("dataHoraAtualMais5min") LocalDateTime dataHoraAtualMais5min);
 }

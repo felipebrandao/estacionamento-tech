@@ -149,10 +149,10 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
     @Override
     public void enviarNotificacoesEstacionamentoEstaPertoDoFim() {
 
+        LocalDateTime dataHoraAtualMenos10min = LocalDateTime.now().minusMinutes(10);
         LocalDateTime dataHoraAtual = LocalDateTime.now();
-        LocalDateTime dataHoraExpiracao = dataHoraAtual.plusMinutes(10);
 
-        List<VeiculoEstacionado> estacionamentosPertoDoFim = veiculoEstacionadoRepository.getEstacionamentosPertoDoFim(dataHoraAtual, dataHoraExpiracao);
+        List<VeiculoEstacionado> estacionamentosPertoDoFim = veiculoEstacionadoRepository.getEstacionamentosPertoDoFim(dataHoraAtualMenos10min, dataHoraAtual);
 
         for (VeiculoEstacionado estacionado : estacionamentosPertoDoFim) {
             envioDeEmailEstacionamento(estacionado.getIdVeiculo(), "Estacionamento Tech - Aviso de Expiração", TipoEmailEnum.EXPIRACAO);
@@ -163,9 +163,9 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
     @Override
     public void estacionamentoExpirado() {
-        LocalDateTime dataHoraExpirado = LocalDateTime.now().plusMinutes(10);
+        LocalDateTime dataHoraAtualMais5min = LocalDateTime.now().plusMinutes(5);
 
-        List<VeiculoEstacionado> estacionamentosExpirado = veiculoEstacionadoRepository.getEstacionamentosExpirado(dataHoraExpirado);
+        List<VeiculoEstacionado> estacionamentosExpirado = veiculoEstacionadoRepository.getEstacionamentosExpirado(dataHoraAtualMais5min);
 
         for (VeiculoEstacionado estacionado : estacionamentosExpirado) {
             envioDeEmailEstacionamento(estacionado.getIdVeiculo(), "Estacionamento Tech - Expirado", TipoEmailEnum.EXPIRADO);
