@@ -1,0 +1,43 @@
+package com.fiap.techchallenge.notificacao.dtos;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fiap.techchallenge.notificacao.enums.TipoUsuarioEnum;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+
+import java.util.UUID;
+
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode
+public class UsuarioDTO {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private UUID id;
+
+    @JsonProperty
+    @NotBlank(message = "Nome é um campo obrigatório e não pode estar em branco")
+    private String nome;
+
+    @JsonProperty
+    @NotBlank(message="Email é um campo obrigatório e não pode estar em branco")
+    @Email(message = "Formato do email é inválido")
+    private String email;
+
+    @JsonProperty
+    @CPF
+    @NotBlank(message = "CPF da Pessoa é um campo obrigatório e não pode estar em branco")
+    private String cpf;
+
+    @JsonIgnore
+    private TipoUsuarioEnum tipoUsuarioEnum;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotBlank(message = "Senha é um campo obrigatório e não pode estar em branco")
+    private String senha;
+}

@@ -1,0 +1,13 @@
+package com.fiap.techchallenge.estacionamentoscheduler;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class EstacionamentoSchedulerApplication {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
