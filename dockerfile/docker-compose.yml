@@ -26,88 +26,40 @@ services:
     networks:
       - kafka-net
 
-  kafdrop:
-    image: obsidiandynamics/kafdrop
-    restart: "no"
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
     ports:
-      - "9000:9000"
+      - "9000:8080"
     environment:
-      KAFKA_BROKERCONNECT: "kafka:29092"
-      JVM_OPTS: "-Xms32M -Xmx64M"
+      KAFKA_CLUSTERS_0_NAME: "local-cluster"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:29092"
     depends_on:
       - kafka
     networks:
       - kafka-net
 
-  estacionamento:
+  parking:
     image: mongo:latest
-    container_name: estacionamento
+    container_name: parking
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: "mongodb"
       MONGO_INITDB_ROOT_PASSWORD: "mongodb"
-      MONGO_INITDB_DATABASE: "estacionamento"
+      MONGO_INITDB_DATABASE: "parking"
     volumes:
-      - estacionamento-data:/data/db
-      - estacionamento-config:/data/configdb
-      - ./init.mongo-estacionamento.js:/docker-entrypoint-initdb.d/init.mongo-estacionamento.js:ro
+      - parking-data:/data/db
+      - parking-config:/data/configdb
+      - ./init.mongo-parking.js:/docker-entrypoint-initdb.d/init.mongo-parking.js:ro
+      - ./init.mongo-vehicle.js:/docker-entrypoint-initdb.d/init.mongo-vehicle.js:ro
+      - ./init.mongo-user.js:/docker-entrypoint-initdb.d/init.mongo-user.js:ro
     ports:
       - "27017:27017"
-      -
-  veiculo:
-    image: mongo:latest
-    container_name: veiculo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-      MONGO_INITDB_ROOT_PASSWORD: "mongodb"
-      MONGO_INITDB_DATABASE: "veiculo"
-    volumes:
-      - veiculo-data:/data/db
-      - veiculo-config:/data/configdb
-      - ./init.mongo-veiculo.js:/docker-entrypoint-initdb.d/init.mongo-veiculo.js:ro
-    ports:
-      - "27018:27017"
-
-  usuario:
-    image: mongo:latest
-    container_name: usuario
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-      MONGO_INITDB_ROOT_PASSWORD: "mongodb"
-      MONGO_INITDB_DATABASE: "usuario"
-    volumes:
-      - usuario-data:/data/db
-      - usuario-config:/data/configdb
-      - ./init.mongo-usuario.js:/docker-entrypoint-initdb.d/init.mongo-usuario.js:ro
-    ports:
-      - "27019:27017"
-
-  multa:
-    image: mongo:latest
-    container_name: multa
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-      MONGO_INITDB_ROOT_PASSWORD: "mongodb"
-      MONGO_INITDB_DATABASE: "multa"
-    volumes:
-      - multa-data:/data/db
-      - multa-config:/data/configdb
-    ports:
-      - "27020:27017"
 
 networks:
   kafka-net:
     driver: bridge
 
 volumes:
-  estacionamento-data:
-  estacionamento-config:
-  veiculo-data:
-  veiculo-config:
-  usuario-data:
-  usuario-config:
-  multa-data:
-  multa-config:
+  parking-data:
+  parking-config:
