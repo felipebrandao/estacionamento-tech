@@ -1,7 +1,7 @@
-package com.fiap.techchallenge.notificacao.config;
+package com.fiap.techchallenge.auth.config;
 
-import com.fiap.techchallenge.notificacao.security.JwtAuthenticationFilter;
-import com.fiap.techchallenge.notificacao.security.JwtTokenProvider;
+import com.fiap.techchallenge.auth.security.JwtAuthenticationFilter;
+import com.fiap.techchallenge.auth.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -44,21 +44,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                //.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/api/usuario/cadastro/**").permitAll()
-                        .requestMatchers("/api/enviar-email").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        .requestMatchers("/api/veiculo").hasAuthority("COMUM")
-                        .requestMatchers("/api/estacionamento/estacionar").hasAuthority("COMUM")
-                        .requestMatchers("/api/estacionamento/estender-horas/**").hasAuthority("COMUM")
-                        .requestMatchers("/api/estacionamento/locais/listar").hasAuthority("COMUM")
-
-                        .requestMatchers("/api/multa").hasAuthority("FISCAL")
-                        .requestMatchers("/api/estacionamento/locais").hasAuthority("FISCAL")
 
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
 
@@ -69,4 +60,17 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // seu front
+//        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//        configuration.setAllowedHeaders(List.of("*"));
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
+
 }

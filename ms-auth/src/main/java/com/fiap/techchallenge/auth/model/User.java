@@ -1,6 +1,6 @@
-package com.fiap.techchallenge.notificacao.model;
+package com.fiap.techchallenge.auth.model;
 
-import com.fiap.techchallenge.notificacao.enums.TipoUsuarioEnum;
+import com.fiap.techchallenge.auth.enums.UserTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,16 +12,16 @@ import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "usuario")
+@Document(collection = "users")
 @Data
 @Builder
-public class Usuario {
+public class User {
     @Id
     private UUID id;
-    private String nome;
+    private String name;
     private String email;
     private String cpf;
-    private TipoUsuarioEnum tipoUsuarioEnum;
-    private String senha;
+    private UserTypeEnum userType;
+    private String password;
 
 }

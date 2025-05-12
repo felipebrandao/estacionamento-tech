@@ -9,10 +9,16 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fiap.techchallenge</groupId>
-    <artifactId>ms-usuario</artifactId>
+    <artifactId>ms-auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ms-usuario</name>
-    <description>FIAP - Tech Challenge - Servico de Usuario</description>
+    <name>ms-auth</name>
+    <description>FIAP - Tech Challenge - Servico de Autenticacao</description>
+    <developers>
+        <developer>
+            <name>Felipe Brandão Cordeiro</name>
+            <email>felipe.b31@gmail.com</email>
+        </developer>
+    </developers>
     <properties>
         <java.version>17</java.version>
         <org.mapstruct.version>1.6.0.Beta1</org.mapstruct.version>
@@ -89,12 +95,6 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>3.0.0-beta1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>

@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.notificacao.security;
+package com.fiap.techchallenge.auth.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
