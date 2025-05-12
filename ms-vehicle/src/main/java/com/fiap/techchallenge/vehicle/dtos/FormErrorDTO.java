@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.notificacao.dtos;
+package com.fiap.techchallenge.vehicle.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErroDeFormularioDTO {
+public class FormErrorDTO {
 
-    private String campo;
-    private String erro;
+    private String field;
+    private String error;
 
 }

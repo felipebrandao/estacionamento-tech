@@ -1,7 +1,7 @@
-package com.fiap.techchallenge.veiculo.controllers;
+package com.fiap.techchallenge.vehicle.controllers;
 
-import com.fiap.techchallenge.veiculo.dtos.VeiculoDTO;
-import com.fiap.techchallenge.veiculo.services.VeiculoService;
+import com.fiap.techchallenge.vehicle.dtos.VehicleDTO;
+import com.fiap.techchallenge.vehicle.services.VehicleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -17,15 +17,15 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/veiculo")
+@RequestMapping("/vehicle")
 @Tag(name = "Veículo")
-public class VeiculoController {
+public class VehicleController {
 
-    private final VeiculoService veiculoService;
+    private final VehicleService vehicleService;
 
     @Autowired
-    public VeiculoController(VeiculoService veiculoService) {
-        this.veiculoService = veiculoService;
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
     }
 
     @PostMapping
@@ -34,9 +34,9 @@ public class VeiculoController {
             @ApiResponse(responseCode = "201", description = "Veículo cadastrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro na requisição")
     })
-    public ResponseEntity<VeiculoDTO> cadastrarVeiculo(@RequestBody VeiculoDTO veiculo, @RequestHeader("id_user") UUID idUsuario) {
-        VeiculoDTO veiculoCadastrado = veiculoService.cadastrarVeiculo(veiculo, idUsuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(veiculoCadastrado);
+    public ResponseEntity<VehicleDTO> registerVehicle(@RequestBody VehicleDTO vehicleDTO) {
+        VehicleDTO registeredVehicle = vehicleService.registerVehicle(vehicleDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredVehicle );
     }
 
     @GetMapping("/{id}")
@@ -45,20 +45,20 @@ public class VeiculoController {
             @ApiResponse(responseCode = "200", description = "Veículo encontrado"),
             @ApiResponse(responseCode = "404", description = "Veículo não encontrado")
     })
-    public ResponseEntity<VeiculoDTO> buscarVeiculoPorId(@PathVariable Long id, @RequestHeader("id_user") UUID idUsuario) {
-        VeiculoDTO veiculo = veiculoService.buscarVeiculoPorIdEUsuario(id, idUsuario);
-        return ResponseEntity.status(HttpStatus.OK).body(veiculo);
+    public ResponseEntity<VehicleDTO> getVehicleById(@PathVariable UUID id) {
+        VehicleDTO vehicle = vehicleService.getVehicleByIdAndUser(id);
+        return ResponseEntity.status(HttpStatus.OK).body(vehicle);
     }
 
-    @GetMapping("/listar")
+    @GetMapping
     @Operation(summary = "Listar veículos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Veículos listados"),
             @ApiResponse(responseCode = "404", description = "Veículos não encontrados")
     })
-    public ResponseEntity<List<VeiculoDTO>> listarVeiculos(@RequestHeader("id_user") UUID idUsuario) {
-        List<VeiculoDTO> veiculos = veiculoService.listarVeiculosPorUsuario(idUsuario);
-        return ResponseEntity.status(HttpStatus.OK).body(veiculos);
+    public ResponseEntity<List<VehicleDTO>> listVehicles() {
+        List<VehicleDTO> vehicles = vehicleService.listVehiclesByUser();
+        return ResponseEntity.status(HttpStatus.OK).body(vehicles);
     }
 
     @DeleteMapping("/{id}")
@@ -67,8 +67,19 @@ public class VeiculoController {
             @ApiResponse(responseCode = "204", description = "Veículo excluído com sucesso"),
             @ApiResponse(responseCode = "404", description = "Veículo não encontrado")
     })
-    public ResponseEntity<Void> excluirVeiculo(@PathVariable Long id, @RequestHeader("id_user") UUID idUsuario) {
-        veiculoService.excluirVeiculo(id, idUsuario);
+    public ResponseEntity<Void> deleteVehicle(@PathVariable UUID id) {
+        vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar veículo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Veículo atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Veículo não encontrado")
+    })
+    public ResponseEntity<VehicleDTO> updateVehicle(@PathVariable UUID id, @RequestBody VehicleDTO vehicleDTO) {
+        VehicleDTO updatedVehicle = vehicleService.updateVehicle(id, vehicleDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedVehicle);
     }
 }

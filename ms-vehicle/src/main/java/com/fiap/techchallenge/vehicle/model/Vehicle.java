@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.veiculo.model;
+package com.fiap.techchallenge.vehicle.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,18 +9,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
-@Document(collection = "veiculo")
+@Document(collection = "vehicles")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class Veiculo {
+public class Vehicle {
 
     @Id
     private UUID id;
-    private String marca;
-    private String modelo;
-    private String placa;
-    private UUID idUsuario;
+    private String brand;
+    private String model;
+    private String licensePlate;
+    private UUID userId;
 
 }

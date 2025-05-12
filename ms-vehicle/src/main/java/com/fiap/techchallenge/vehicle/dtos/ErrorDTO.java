@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.notificacao.dtos;
+package com.fiap.techchallenge.vehicle.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +13,5 @@ public class ErrorDTO {
 
     private Instant timestamp;
     private int status;
-    private String mensagem;
+    private String message;
 }

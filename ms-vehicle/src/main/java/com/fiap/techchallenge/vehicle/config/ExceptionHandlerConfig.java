@@ -1,10 +1,8 @@
-package com.fiap.techchallenge.notificacao.config;
+package com.fiap.techchallenge.vehicle.config;
 
-import com.fiap.techchallenge.notificacao.dtos.ErroDeFormularioDTO;
-import com.fiap.techchallenge.notificacao.dtos.ErrorDTO;
-import com.fiap.techchallenge.notificacao.exceptions.AuthenticationFailedException;
-import com.fiap.techchallenge.notificacao.exceptions.EstacionamentoTechException;
-import com.fiap.techchallenge.notificacao.exceptions.InvalidTokenException;
+import com.fiap.techchallenge.vehicle.dtos.FormErrorDTO;
+import com.fiap.techchallenge.vehicle.dtos.ErrorDTO;
+import com.fiap.techchallenge.vehicle.exceptions.ParkingTechException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestControllerAdvice
 @Order(HIGHEST_PRECEDENCE)
@@ -28,8 +27,8 @@ import static org.springframework.http.HttpStatus.*;
 @Slf4j
 public class ExceptionHandlerConfig {
 
-    @ExceptionHandler(EstacionamentoTechException.class)
-    public ResponseEntity<ErrorDTO> handleEstacionamentoException(EstacionamentoTechException ex) {
+    @ExceptionHandler(ParkingTechException.class)
+    public ResponseEntity<ErrorDTO> handleParkingException(ParkingTechException ex) {
         log.error("Erro na requisição, erro: ", ex);
         ErrorDTO error = new ErrorDTO(Instant.now(), BAD_REQUEST.value(), ex.getMessage());
         return ResponseEntity.status(BAD_REQUEST).body(error);
@@ -37,32 +36,19 @@ public class ExceptionHandlerConfig {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(BAD_REQUEST)
-    public ResponseEntity<List<ErroDeFormularioDTO>> handleException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<List<FormErrorDTO>> handleException(MethodArgumentNotValidException ex) {
         log.error("Erro na requisição, erro: ", ex);
 
-        List<ErroDeFormularioDTO> dto = new ArrayList<>();
+        List<FormErrorDTO> dto = new ArrayList<>();
 
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         fieldErrors.forEach(e -> {
-            ErroDeFormularioDTO erro = new ErroDeFormularioDTO(e.getField(), e.getDefaultMessage());
+            FormErrorDTO erro = new FormErrorDTO(e.getField(), e.getDefaultMessage());
             dto.add(erro);
         });
 
         return ResponseEntity.status(BAD_REQUEST).body(dto);
     }
-
-    @ExceptionHandler(InvalidTokenException.class)
-    public ResponseEntity<ErrorDTO> handleInvalidTokenException(InvalidTokenException ex) {
-        log.error("Erro na requisição, erro: ", ex);
-        ErrorDTO error = new ErrorDTO(Instant.now(), UNAUTHORIZED.value(), ex.getMessage());
-        return ResponseEntity.status(UNAUTHORIZED).body(error);
-    }
-
-    @ExceptionHandler(AuthenticationFailedException.class)
-    public ResponseEntity<String> handleAuthenticationFailedException(AuthenticationFailedException ex) {
-        return ResponseEntity.status(UNAUTHORIZED).body(ex.getMessage());
-    }
-
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)

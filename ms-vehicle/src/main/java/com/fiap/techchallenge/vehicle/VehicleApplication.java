@@ -1,13 +1,13 @@
-package com.fiap.techchallenge.veiculo;
+package com.fiap.techchallenge.vehicle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VeiculoApplication {
+public class VehicleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VeiculoApplication.class, args);
+		SpringApplication.run(VehicleApplication.class, args);
 	}
 
 }
