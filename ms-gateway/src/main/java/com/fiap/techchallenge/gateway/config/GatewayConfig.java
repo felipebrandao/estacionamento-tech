@@ -10,17 +10,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayConfig {
 
-    @Value("${ms-usuario.url}")
-    private String msUsuarioUrl;
+    @Value("${ms-auth.url}")
+    private String msAuthUrl;
 
-    @Value("${ms-veiculo.url}")
-    private String msVeiculoUrl;
+    @Value("${ms-user.url}")
+    private String msUserUrl;
 
-    @Value("${ms-estacionamento.url}")
-    private String msEstacionamentoUrl;
+    @Value("${ms-vehicle.url}")
+    private String msVehicleUrl;
 
-    @Value("${ms-multa.url}")
-    private String msMultaUrl;
+    @Value("${ms-parking.url}")
+    private String msParkingUrl;
+
+    @Value("${ms-parking-ticket.url}")
+    private String msParkingTicketUrl;
 
     private final AuthenticationFilter filter;
 
@@ -31,23 +34,24 @@ public class GatewayConfig {
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path("/usuario/**")
-                        .uri(msUsuarioUrl))
+                .route(r -> r.path("/auth/**")
+                        .uri(msAuthUrl))
 
-                .route(r -> r.path("/veiculo/**")
-                        .filters(f -> f.filter(filter))
-                        .uri(msVeiculoUrl))
+                .route(r -> r.path("/user/**")
+                        .uri(msUserUrl))
 
-                .route(r -> r.path("/estacionamento/**")
+                .route(r -> r.path("/vehicle/**")
                         .filters(f -> f.filter(filter))
-                        .uri(msEstacionamentoUrl))
+                        .uri(msVehicleUrl))
 
-                .route(r -> r.path("/multa/**")
+                .route(r -> r.path("/parking/**")
                         .filters(f -> f.filter(filter))
-                        .uri(msMultaUrl))
+                        .uri(msParkingUrl))
+
+                .route(r -> r.path("/parking-ticket/**")
+                        .filters(f -> f.filter(filter))
+                        .uri(msParkingTicketUrl))
                 .build();
-
-
     }
 
 }

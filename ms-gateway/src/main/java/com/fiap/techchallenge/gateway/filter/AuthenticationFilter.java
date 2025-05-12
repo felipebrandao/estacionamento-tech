@@ -1,10 +1,10 @@
 package com.fiap.techchallenge.gateway.filter;
 
-import com.fiap.techchallenge.gateway.feign.UsuarioFeignClient;
-import com.fiap.techchallenge.gateway.feign.dto.UsuarioDTO;
-import com.fiap.techchallenge.gateway.strategy.AutorizacaoStrategy;
-import com.fiap.techchallenge.gateway.strategy.AutorizacaoUsuarioComum;
-import com.fiap.techchallenge.gateway.strategy.AutorizacaoUsuarioFiscal;
+import com.fiap.techchallenge.gateway.feign.AuthFeignClient;
+import com.fiap.techchallenge.gateway.feign.dto.UserDTO;
+import com.fiap.techchallenge.gateway.strategy.AuthorizationStrategy;
+import com.fiap.techchallenge.gateway.strategy.CommonUserAuthorization;
+import com.fiap.techchallenge.gateway.strategy.InspectorUserAuthorization;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -22,14 +22,14 @@ import java.util.Map;
 @Component
 public class AuthenticationFilter implements GatewayFilter {
 
-    private final UsuarioFeignClient usuarioFeignClient;
-    private final Map<String, AutorizacaoStrategy> strategyMap;
+    private final AuthFeignClient authFeignClient;
+    private final Map<String, AuthorizationStrategy> strategyMap;
 
-    public AuthenticationFilter(UsuarioFeignClient usuarioFeignClient) {
-        this.usuarioFeignClient = usuarioFeignClient;
+    public AuthenticationFilter(AuthFeignClient authFeignClient) {
+        this.authFeignClient = authFeignClient;
         this.strategyMap = new HashMap<>();
-        this.strategyMap.put("COMUM", new AutorizacaoUsuarioComum());
-        this.strategyMap.put("FISCAL", new AutorizacaoUsuarioFiscal());
+        this.strategyMap.put("COMUM", new CommonUserAuthorization());
+        this.strategyMap.put("FISCAL", new InspectorUserAuthorization());
     }
 
     @Override
@@ -46,31 +46,28 @@ public class AuthenticationFilter implements GatewayFilter {
         }
 
         try {
-            UsuarioDTO usuarioDTO = usuarioFeignClient.validateToken(headers.toSingleValueMap());
-            String tipoUsuario = usuarioDTO.getTipoUsuario();
+            UserDTO userDTO = authFeignClient.validateToken(headers.toSingleValueMap());
+            String userType = userDTO.getUserType();
 
-            AutorizacaoStrategy strategy = strategyMap.get(tipoUsuario);
+            AuthorizationStrategy strategy = strategyMap.get(userType.toUpperCase());
 
             if (strategy == null) {
                 exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
                 return exchange.getResponse().setComplete();
             }
 
-            if (!strategy.autorizar(requestPath, requestMethod, tipoUsuario)) {
+            if (!strategy.authorize(requestPath, requestMethod, userType)) {
                 exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
                 return exchange.getResponse().setComplete();
             }
 
             exchange = exchange.mutate()
-                    .request(builder -> builder.header("username", usuarioDTO.getUsername())
-                            .header("id_user", usuarioDTO.getId())
-                            .header("nome_usuario", usuarioDTO.getNome())
-                            .header("email_usuario", usuarioDTO.getEmail())
-                            .header("role", usuarioDTO.getTipoUsuario())).build();
+                    .request(builder -> builder.header(HttpHeaders.AUTHORIZATION, authorizationHeader))
+                    .build();
 
             return chain.filter(exchange);
         } catch (Exception  e) {
-            exchange.getResponse().setStatusCode(HttpStatus.BAD_GATEWAY);
+            exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
             return exchange.getResponse().setComplete();
         }
     }
